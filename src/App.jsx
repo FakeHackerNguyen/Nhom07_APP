@@ -4,7 +4,7 @@ import SplashScreen from 'react-native-splash-screen';
 
 import Notifications from './ui/Toast';
 import AuthStack from './features/authentication/AuthStack';
-import AppStack from './navigations/AppStack';
+import AppStack from './AppStack';
 
 export default function App() {
   SplashScreen.hide();

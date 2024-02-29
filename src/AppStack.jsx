@@ -1,11 +1,11 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import Main from '../screens/Main';
-import CustomDrawer from '../ui/CustomDrawer';
-import Group from '../screens/Group';
-import Settings from '../screens/Settings';
-import useLogin from '../features/authentication/useLogin';
-import AuthStack from '../features/authentication/AuthStack';
+import Main from './screens/Main';
+import CustomDrawer from './ui/CustomDrawer';
+import Group from './screens/Group';
+import Settings from './screens/Settings';
+import useLogin from './features/authentication/useLogin';
+import AuthStack from './features/authentication/AuthStack';
 
 const Drawer = createDrawerNavigator();
 
