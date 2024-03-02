@@ -3,8 +3,9 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import useLogin from '../features/authentication/useLogin';
 import Search from '../ui/Search';
 import BottomNavigation from '../ui/BottomNavigation';
-import {Image, Pressable, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+
 function Header({profile}) {
   const navigation = useNavigation();
   return (
@@ -15,7 +16,7 @@ function Header({profile}) {
         alignItems: 'center',
         height: 70,
       }}>
-      <Pressable onPress={() => navigation.openDrawer()}>
+      <TouchableOpacity onPress={() => navigation.openDrawer()}>
         <Image
           style={{
             borderWidth: 1,
@@ -28,7 +29,7 @@ function Header({profile}) {
           }}
           source={{uri: profile?.user.authenticatedUser.avatar.url}}
         />
-      </Pressable>
+      </TouchableOpacity>
       <Search />
       <Image
         style={{
@@ -39,6 +40,7 @@ function Header({profile}) {
     </View>
   );
 }
+
 function Main({navigation}) {
   const {profile} = useLogin();
 

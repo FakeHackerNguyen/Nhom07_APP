@@ -17,7 +17,7 @@ function ForgotPassword({navigation}) {
 
   async function handleForgotPassword() {
     setIsLoading(true);
-    const {data, errorMessage} = await forgotPassword({email});
+    const {errorMessage} = await forgotPassword({email});
     setIsLoading(false);
     if (errorMessage) {
       return toast(errorMessage, {type: 'error'});

@@ -1,11 +1,13 @@
 import React from 'react';
+import {Alert, Linking, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Slider from '../ui/Slider';
 import Logo from '../ui/Logo';
-import {Alert, Linking, Text, View} from 'react-native';
 import Button from '../ui/Button';
 import useLogin from '../features/authentication/useLogin';
 import Spinner from '../ui/Spinner';
+import ReactBox from '../features/posts/ReactBox';
+
 const Home = ({navigation}) => {
   const {isLoading} = useLogin();
 

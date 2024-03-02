@@ -7,7 +7,6 @@ import {
 import useLogin from '../features/authentication/useLogin';
 
 function CustomDrawer(props) {
-  console.log(props);
   const {handleLogout, profile} = useLogin();
   return (
     <View

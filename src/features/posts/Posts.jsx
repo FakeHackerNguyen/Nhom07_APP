@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, Image, ScrollView, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SinglePost from './SinglePost';
+import Button from '../../ui/Button';
 
 const data = [
   {
     id: 1,
   },
-  // {
-  //   id: 2,
-  // },
+  {
+    id: 2,
+  },
   // {
   //   id: 3,
   // },
@@ -46,8 +47,15 @@ const data = [
 ];
 
 function Posts() {
+  const [scroll, setScroll] = useState(true);
   return (
-    <FlatList data={data} renderItem={({item}) => <SinglePost item={item} />} />
+    <FlatList
+      data={data}
+      renderItem={({item}) => (
+        <SinglePost item={item} onSetScroll={setScroll} />
+      )}
+      scrollEnabled={scroll}
+    />
   );
 }
 

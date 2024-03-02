@@ -1,6 +1,7 @@
-import {Image, Text, View} from 'react-native';
-import React from 'react';
+import {Image, Modal, Text, View} from 'react-native';
+import React, {useState} from 'react';
 import styled from 'styled-components/native';
+import ReactBox from './ReactBox';
 
 const ContainerPost = styled.View`
   margin-top: 10px;
@@ -57,6 +58,7 @@ const Interaction = styled.View`
 
 const IconReacts = styled.View`
   flex-direction: row;
+  gap: -8px;
 `;
 
 const Reacts = styled.View`
@@ -70,7 +72,64 @@ const ContainerReact = styled.View`
   height: 25px;
   background-color: ${props => props.bgColor || '#d9d9d9'};
   border-radius: 50px;
+  align-items: center;
+  justify-content: center;
 `;
+
+const StyledImage = styled.Image`
+  width: 18px;
+  height: 18px;
+`;
+const StyledText = styled.Text`
+  font-size: 16px;
+  font-weight: 700;
+  color: #666666;
+`;
+const Column = styled.TouchableOpacity`
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+`;
+
+const Container = styled.View`
+  border-top-width: 1px;
+  border-top-color: #e9e9e9;
+  height: 60px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+function Footer() {
+  return (
+    <Container>
+      <Column>
+        <StyledImage source={require('../../../assets/icons/not-like.png')} />
+        <StyledText>Like</StyledText>
+      </Column>
+
+      <Column>
+        <StyledImage source={require('../../../assets/icons/comment.png')} />
+        <StyledText>Comment</StyledText>
+      </Column>
+      <Column>
+        <StyledImage
+          style={{
+            width: 25,
+            height: 20,
+          }}
+          source={require('../../../assets/icons/repost.png')}
+        />
+        <StyledText>Repost</StyledText>
+      </Column>
+      <Column>
+        <StyledImage source={require('../../../assets/icons/send.png')} />
+        <StyledText>Send</StyledText>
+      </Column>
+    </Container>
+  );
+}
 
 function Suggested() {
   return (
@@ -117,7 +176,7 @@ function Suggested() {
   );
 }
 
-function SinglePost() {
+function SinglePost({onSetScroll}) {
   return (
     <ContainerPost>
       <Suggested />
@@ -193,39 +252,16 @@ function SinglePost() {
         <Interaction>
           <Reacts>
             <IconReacts>
-              <ContainerReact bgColor="#2D64BC">
+              <ContainerReact bgColor="#508DE2">
+                <Image source={require('../../../assets/icons/like.png')} />
+              </ContainerReact>
+              <ContainerReact bgColor="#098D0E">
                 <Image
-                  style={{
-                    alignSelf: 'center',
-                  }}
-                  source={require('../../../assets/icons/like.png')}
+                  source={require('../../../assets/icons/celebrate.png')}
                 />
               </ContainerReact>
-              <ContainerReact
-                bgColor="#45F94D"
-                style={{
-                  marginLeft: -10,
-                }}>
-                <Image
-                  style={{
-                    alignSelf: 'center',
-                    marginTop: 2,
-                  }}
-                  source={require('../../../assets/icons/clap.png')}
-                />
-              </ContainerReact>
-              <ContainerReact
-                bgColor="#ED8080"
-                style={{
-                  marginLeft: -10,
-                }}>
-                <Image
-                  style={{
-                    alignSelf: 'center',
-                    marginTop: 2,
-                  }}
-                  source={require('../../../assets/icons/heart.png')}
-                />
+              <ContainerReact bgColor="#D17655">
+                <Image source={require('../../../assets/icons/love.png')} />
               </ContainerReact>
             </IconReacts>
             <Text
@@ -249,7 +285,7 @@ function SinglePost() {
                 color: '#6C6C6C',
                 fontWeight: '600',
               }}>
-              100 likes
+              100 comments
             </Text>
             <View
               style={{
@@ -264,11 +300,12 @@ function SinglePost() {
                 color: '#6C6C6C',
                 fontWeight: '600',
               }}>
-              10 comments
+              10 reposts
             </Text>
           </View>
         </Interaction>
       </Post>
+      <ReactBox onSetScroll={onSetScroll} />
     </ContainerPost>
   );
 }

@@ -12,9 +12,9 @@ const Drawer = createDrawerNavigator();
 function AppStack() {
   const {profile} = useLogin();
 
-  if (!profile?.user) {
-    return <AuthStack />;
-  }
+  // if (!profile?.user) {
+  //   return <AuthStack />;
+  // }
 
   return (
     <Drawer.Navigator
@@ -22,7 +22,15 @@ function AppStack() {
       screenOptions={{
         headerShown: false,
       }}>
-      <Drawer.Screen name="Main" component={Main} />
+      <Drawer.Screen
+        name="Main"
+        component={Main}
+        options={{
+          drawerItemStyle: {
+            display: 'none',
+          },
+        }}
+      />
       <Drawer.Screen name="Group" component={Group} />
       <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
