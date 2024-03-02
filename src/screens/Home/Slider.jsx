@@ -1,6 +1,6 @@
 import {Animated, FlatList, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import slides from '../data/slider';
+import slides from '../../data/slider';
 import SliderItem from './SliderItem';
 import Pagination from './Pagination';
 

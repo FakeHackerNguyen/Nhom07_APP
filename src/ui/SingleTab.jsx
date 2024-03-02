@@ -2,7 +2,7 @@ import {Image, Text, View} from 'react-native';
 import React from 'react';
 import icons from '../data/icon';
 
-const SingleTab = ({size, color, type}) => {
+const SingleTab = ({size, color, type, selected}) => {
   const icon = icons.find(i => i.id === type);
   return (
     <View
@@ -10,18 +10,21 @@ const SingleTab = ({size, color, type}) => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 30,
+        width: 80,
+        height: 50,
+        gap: 5,
+        borderTopWidth: selected ? 2 : 0,
       }}>
       <Image
         source={icon.image}
         style={{
           tintColor: color,
+          marginTop: 20,
         }}
       />
       <Text
         style={{
           color: color,
-          marginTop: 5,
           fontWeight: '500',
         }}>
         {icon.title}

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import useLogin from '../features/authentication/useLogin';
-import Search from '../ui/Search';
-import BottomNavigation from '../ui/BottomNavigation';
+import useLogin from '../../features/authentication/useLogin';
+import Search from '../../ui/Search';
+import BottomNavigation from '../../ui/BottomNavigation';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -35,14 +35,21 @@ function Header({profile}) {
         style={{
           marginRight: 20,
         }}
-        source={require('../../assets/icons/chat.png')}
+        source={require('../../../assets/icons/chat.png')}
       />
     </View>
   );
 }
 
-function Main({navigation}) {
+export default function Main({navigation}) {
   const {profile} = useLogin();
+
+  useEffect(() => {
+    if (!profile?.user) {
+      navigation.closeDrawer();
+      navigation.navigate('login');
+    }
+  }, [profile]);
 
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
@@ -51,5 +58,3 @@ function Main({navigation}) {
     </SafeAreaView>
   );
 }
-
-export default Main;

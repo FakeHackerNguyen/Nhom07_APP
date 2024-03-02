@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   SafeAreaView,
@@ -29,7 +29,7 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {handleLogin, isLoading} = useLogin();
+  const {handleLogin, isLoading, profile} = useLogin();
 
   // useEffect(() => {
   //   Linking.addEventListener('url', event => {
@@ -40,6 +40,12 @@ export default function Login({navigation}) {
   //     console.log('queryUser: ', decodeURIComponent(queryUser));
   //   });
   // }, []);
+
+  useEffect(() => {
+    if (profile?.user) {
+      navigation.navigate('main');
+    }
+  }, [profile]);
 
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
@@ -96,7 +102,11 @@ export default function Login({navigation}) {
         <Button
           backgroundColor="#2D64BC"
           colorText="#fff"
-          onHandlePress={() => handleLogin({email, password})}>
+          onHandlePress={() => {
+            handleLogin({email, password});
+            setEmail('');
+            setPassword('');
+          }}>
           Sign in
         </Button>
         <View

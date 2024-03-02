@@ -1,5 +1,3 @@
-import {useEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {useAuth} from '../../context/AuthContext';
 
 export default function useLogin() {

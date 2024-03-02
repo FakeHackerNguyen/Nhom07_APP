@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Alert, Linking, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import Slider from '../ui/Slider';
-import Logo from '../ui/Logo';
-import Button from '../ui/Button';
-import useLogin from '../features/authentication/useLogin';
-import Spinner from '../ui/Spinner';
-import ReactBox from '../features/posts/ReactBox';
+import Slider from './Slider';
+import Logo from '../../ui/Logo';
+import Button from '../../ui/Button';
+import useLogin from '../../features/authentication/useLogin';
+import Spinner from '../../ui/Spinner';
 
 const Home = ({navigation}) => {
-  const {isLoading} = useLogin();
+  const {isLoading, profile} = useLogin();
+
+  useEffect(() => {
+    if (profile?.user) {
+      navigation.navigate('main');
+    }
+  }, [profile]);
 
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>

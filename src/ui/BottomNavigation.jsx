@@ -20,31 +20,48 @@ function BottomNavigation() {
           bottom: 0,
           backgroundColor: '#ffffff',
           elevation: 0,
-          height: 70,
+          height: 80,
         },
         tabBarIcon: ({focused, color, size}) => {
           if (route.name === 'home') {
             return (
-              <SingleTab type="home" color={focused ? '#000' : '#8C8C8C'} />
+              <SingleTab
+                type="home"
+                color={focused ? '#000' : '#8C8C8C'}
+                selected={focused}
+              />
             );
           } else if (route.name === 'network') {
             return (
-              <SingleTab type="network" color={focused ? '#000' : '#8C8C8C'} />
+              <SingleTab
+                type="network"
+                color={focused ? '#000' : '#8C8C8C'}
+                selected={focused}
+              />
             );
           } else if (route.name === 'post') {
             return (
-              <SingleTab type="post" color={focused ? '#000' : '#8C8C8C'} />
+              <SingleTab
+                type="post"
+                color={focused ? '#000' : '#8C8C8C'}
+                selected={focused}
+              />
             );
           } else if (route.name === 'notification') {
             return (
               <SingleTab
                 type="notification"
                 color={focused ? '#000' : '#8C8C8C'}
+                selected={focused}
               />
             );
           } else if (route.name === 'job') {
             return (
-              <SingleTab type="job" color={focused ? '#000' : '#8C8C8C'} />
+              <SingleTab
+                type="job"
+                color={focused ? '#000' : '#8C8C8C'}
+                selected={focused}
+              />
             );
           }
         },
