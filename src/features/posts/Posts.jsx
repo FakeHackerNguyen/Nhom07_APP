@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
-import {FlatList, Image, ScrollView, Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {FlatList} from 'react-native';
 import SinglePost from './SinglePost';
-import Button from '../../ui/Button';
 
 const data = [
   {

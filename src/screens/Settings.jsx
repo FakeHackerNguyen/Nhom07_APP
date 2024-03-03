@@ -3,7 +3,7 @@ import React from 'react';
 import useLogin from '../features/authentication/useLogin';
 import styled from 'styled-components/native';
 import settings from '../constants/Settings';
-import BottomNavigation from '../ui/BottomNavigation';
+import BottomNavigation from './Main/BottomNavigation';
 
 const Row = styled.TouchableOpacity`
   flex-direction: row;

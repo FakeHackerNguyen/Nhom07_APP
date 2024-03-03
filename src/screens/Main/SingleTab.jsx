@@ -1,6 +1,6 @@
 import {Image, Text, View} from 'react-native';
 import React from 'react';
-import icons from '../data/icon';
+import icons from '../../data/icon';
 
 const SingleTab = ({size, color, type, selected}) => {
   const icon = icons.find(i => i.id === type);

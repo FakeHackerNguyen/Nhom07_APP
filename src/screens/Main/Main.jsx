@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import useLogin from '../../features/authentication/useLogin';
 import Search from '../../ui/Search';
-import BottomNavigation from '../../ui/BottomNavigation';
+import BottomNavigation from './BottomNavigation';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 

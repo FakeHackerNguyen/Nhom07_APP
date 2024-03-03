@@ -3,11 +3,12 @@ import {Text, View} from 'react-native';
 import styled from 'styled-components/native';
 
 const StyledButton = styled.TouchableOpacity`
-  width: 385px;
+  width: ${props => props.width || 385}px;
   margin-left: auto;
   margin-right: auto;
-  padding: 15px;
-  border-width: ${props => props.borderWidth || 'none'};
+  padding: ${props => props.padding || 15}px;
+  border-width: ${props => props.borderWidth || 0}px;
+  border-color: ${props => props.borderColor || '#fff'};
   border-radius: 34px;
   background-color: ${props => props.backgroundColor || '#fff'};
 `;
@@ -17,8 +18,12 @@ function Button({
   colorText,
   backgroundColor,
   borderWidth,
+  borderColor,
   margin,
   onHandlePress,
+  width,
+  textSize,
+  padding,
 }) {
   return (
     <View
@@ -32,13 +37,16 @@ function Button({
       }>
       <StyledButton
         borderWidth={borderWidth}
+        borderColor={borderColor}
         backgroundColor={backgroundColor}
-        onPress={onHandlePress}>
+        onPress={onHandlePress}
+        width={width}
+        padding={padding}>
         <Text
           style={{
             textAlign: 'center',
             color: colorText,
-            fontSize: 22,
+            fontSize: textSize || 22,
             fontWeight: 800,
           }}>
           {children}

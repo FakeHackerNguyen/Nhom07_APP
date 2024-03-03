@@ -6,7 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Notifications from './ui/Toast';
 import Home from './screens/Home/Home';
 import Login from './screens/Login';
-import Profile from './screens/Profile/Profile';
+import Profile from './screens/Profile';
 import ForgotPassword from './screens/ForgotPassword/ForgotPassword';
 import OTPVerification from './screens/ForgotPassword/OTPVerification';
 import ConfirmPassword from './screens/ForgotPassword/ConfirmPassword';
@@ -20,6 +20,7 @@ import MainStack from './screens/Main/MainStack';
 import Settings from './screens/Settings';
 import Group from './screens/Group';
 import CustomBackIcon from './ui/CustomBackIcon';
+import HeaderProfile from './features/users/HeaderProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -52,9 +53,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen
+          name="profile"
+          component={Profile}
+          options={{
+            headerShown: true,
+            header: () => <HeaderProfile />,
+          }}
+        />
         <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="profile" component={Profile} />
+        <Stack.Screen name="home" component={Home} />
 
         <Stack.Screen name="forgot" component={ForgotPassword} />
         <Stack.Screen name="otp" component={OTPVerification} />

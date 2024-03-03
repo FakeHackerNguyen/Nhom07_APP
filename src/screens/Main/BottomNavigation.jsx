@@ -1,10 +1,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Posts from '../features/posts/Posts';
-import Network from '../features/network/Network';
-import CreatePost from '../features/posts/CreatePost';
-import Notification from '../screens/Notification';
-import Jobs from '../features/jobs/Jobs';
+import Posts from '../../features/posts/Posts';
+import Network from '../../features/network/Network';
+import CreatePost from '../../features/posts/CreatePost';
+import Notification from '../Notification';
+import Jobs from '../../features/jobs/Jobs';
 import SingleTab from './SingleTab';
 
 const Tab = createBottomTabNavigator();

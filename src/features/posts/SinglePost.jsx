@@ -293,7 +293,8 @@ function SinglePost({onSetScroll}) {
                 height: 5,
                 borderRadius: 50,
                 backgroundColor: '#6C6C6C',
-              }}></View>
+              }}
+            />
             <Text
               style={{
                 marginRight: 10,

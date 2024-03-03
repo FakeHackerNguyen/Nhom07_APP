@@ -130,7 +130,7 @@ export default function Login({navigation}) {
           <View style={{flex: 1, height: 1, backgroundColor: '#EAEAEA'}} />
         </View>
         <Button
-          borderWidth="1px"
+          borderWidth={1}
           colorText="#666"
           onHandlePress={() =>
             Alert.alert(
