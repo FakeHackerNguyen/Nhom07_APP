@@ -14,6 +14,7 @@ import Button from '../ui/Button';
 import ActivityNavigation from '../features/users/ActivityNavigation';
 import Educations from '../features/users/Educations';
 import Experiences from '../features/users/Experiences';
+import Skills from '../features/users/Skills';
 
 const Title = styled.Text`
   font-size: 25px;
@@ -161,7 +162,7 @@ function Profile() {
               width={170}
               textSize={18}
               padding={6}>
-              Connect
+              Open to
             </Button>
             <Button
               borderWidth={1}
@@ -170,7 +171,7 @@ function Profile() {
               width={170}
               textSize={18}
               padding={6}>
-              Message
+              Add section
             </Button>
             <TouchableOpacity>
               <View
@@ -257,6 +258,15 @@ function Profile() {
         <Title>Education</Title>
         <Educations />
       </CommonView>
+      <CommonView>
+        <Title>Skills</Title>
+        <Skills />
+      </CommonView>
+      <View
+        style={{
+          height: 20,
+        }}
+      />
     </ScrollView>
   );
 }
