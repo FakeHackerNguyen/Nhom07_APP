@@ -42,6 +42,7 @@ function UserAddProfile({navigation, route}) {
           ? [
               {
                 company: profile.company._id,
+                nameOfCompany: profile.company.name, // for create headline first create new user
                 jobTitle: profile.jobTitle,
                 typeEmployment: profile.employmentType,
               },
@@ -56,6 +57,7 @@ function UserAddProfile({navigation, route}) {
           ? [
               {
                 school: profile.school._id,
+                nameOfSchool: profile.school.name, // for create headline first create new user
                 startYear: profile.startYear,
                 endYear: profile.endYear,
               },

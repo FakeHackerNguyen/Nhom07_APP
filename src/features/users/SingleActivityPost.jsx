@@ -1,6 +1,8 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import styled from 'styled-components/native';
+import useMoreText from './MoreText';
+import MoreText from './MoreText';
 
 const Interaction = styled.View`
   flex-direction: row;
@@ -30,19 +32,6 @@ const ContainerReact = styled.View`
 `;
 
 export default function SingleActivityPost() {
-  const [textShown, setTextShown] = useState(false); //To show ur remaining Text
-  const [lengthMore, setLengthMore] = useState(false); //to show the "Read more & Less Line"
-
-  const toggleNumberOfLines = () => {
-    //To toggle the show text or hide it
-    setTextShown(!textShown);
-  };
-
-  const onTextLayout = useCallback(e => {
-    setLengthMore(e.nativeEvent.lines.length >= 3); //to check the text is more than 4 lines or not
-    // console.log(e.nativeEvent);
-  }, []);
-
   return (
     <Pressable
       style={{
@@ -51,6 +40,7 @@ export default function SingleActivityPost() {
       }}>
       <View
         style={{
+          marginTop: 10,
           flexDirection: 'row',
           alignItems: 'center',
           gap: 8,
@@ -101,40 +91,15 @@ export default function SingleActivityPost() {
           }}
           source={require('../../../assets/images/example.png')}
         />
-        <Text
-          onTextLayout={onTextLayout}
-          numberOfLines={textShown ? undefined : 3}
-          style={{
-            lineHeight: 21,
-            flex: 1,
-            fontWeight: '500',
-            fontSize: 15,
-          }}>
+
+        <MoreText>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis
           voluptas tenetur ducimus, laborum, quos, quas quidem quae quia
-          quibusdam Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Natus voluptas laboriosam optio, quia fuga distinctio nam modi et
-          quibusdam, eum necessitatibus quam repellat officia incidunt quis
-          quaerat? Alias, accusantium illo Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Ullam quo, eligendi temporibus tenetur
-          officia quis dolores, id praesentium quaerat minus delectus laborum,
-          quam aliquid itaque ex doloribus blanditiis eaque. Quae.
-        </Text>
-        {lengthMore ? (
-          <Text
-            onPress={toggleNumberOfLines}
-            style={{
-              lineHeight: 21,
-              position: 'absolute',
-              color: '#666',
-              fontWeight: '600',
-              right: 0,
-              top: 42,
-              backgroundColor: 'white',
-            }}>
-            {!textShown && '...see more'}
-          </Text>
-        ) : null}
+          quibusdam Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          Harum culpa quam tempore provident quo pariatur autem quos laudantium
+          sunt dolorum praesentium voluptatem, est odio dolore eveniet soluta
+          molestiae exercitationem delectus?
+        </MoreText>
       </View>
       <Interaction>
         <Reacts>

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Pressable,
   ScrollView,
@@ -15,6 +15,7 @@ import ActivityNavigation from '../features/users/ActivityNavigation';
 import Educations from '../features/users/Educations';
 import Experiences from '../features/users/Experiences';
 import Skills from '../features/users/Skills';
+import MoreText from '../features/users/MoreText';
 
 const Title = styled.Text`
   font-size: 25px;
@@ -30,17 +31,10 @@ const CommonView = styled.View`
 
 function Profile() {
   const {profile} = useLogin();
-  const [textShown, setTextShown] = useState(false); //To show ur remaining Text
-  const [lengthMore, setLengthMore] = useState(false); //to show the "Read more & Less Line"
+  const [currentExperience, setCurrentExperience] = useState({});
+  const [currentEducation, setCurrentEducation] = useState({});
 
-  const toggleNumberOfLines = () => {
-    //To toggle the show text or hide it
-    setTextShown(!textShown);
-  };
-
-  const onTextLayout = useCallback(e => {
-    setLengthMore(e.nativeEvent.lines.length >= 3); //to check the text is more than 4 lines or not
-  }, []);
+  console.log(currentExperience, currentEducation);
 
   return (
     <ScrollView
@@ -54,7 +48,7 @@ function Profile() {
             height: 100,
             width: '100%',
           }}
-          source={require('../../assets/images/example.png')}
+          source={{uri: profile?.user.authenticatedUser.cover.url}}
         />
         <View
           style={{
@@ -113,18 +107,36 @@ function Profile() {
               marginLeft: 20,
               flex: 1,
             }}>
-            Software Engineering at Microchip Technology
+            {profile?.user.authenticatedUser.experiences[0]?.headline}
           </Text>
-          <Text
+          <View
             style={{
-              fontSize: 16,
-              marginTop: 20,
-              fontWeight: '500',
+              flexDirection: 'row',
+              alignItems: 'center',
               marginLeft: 20,
-              flex: 1,
+              marginTop: 20,
+              gap: 10,
             }}>
-            Microchip Technology Inc
-          </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 500,
+              }}>
+              {currentExperience?.company?.name}
+            </Text>
+            <View
+              style={{
+                width: 3,
+                height: 3,
+                borderRadius: 50,
+                backgroundColor: '#000',
+              }}
+            />
+            <Text style={{fontWeight: 600}}>
+              {currentEducation?.university?.name}
+            </Text>
+          </View>
+
           <Text
             style={{
               color: '#666',
@@ -133,7 +145,7 @@ function Profile() {
               marginLeft: 20,
               flex: 1,
             }}>
-            Ho Chi Minh City, Vietnam
+            {profile?.user.authenticatedUser.location}
           </Text>
           <Text
             style={{
@@ -146,7 +158,6 @@ function Profile() {
             }}>
             500+ connections
           </Text>
-
           <View
             style={{
               flexDirection: 'row',
@@ -202,38 +213,14 @@ function Profile() {
       </View>
       <CommonView>
         <Title>About</Title>
-        <View style={{marginTop: 10, marginRight: 20}}>
-          <Text
-            onTextLayout={onTextLayout}
-            numberOfLines={textShown ? undefined : 3}
-            style={{
-              lineHeight: 21,
-              marginLeft: 20,
-              marginBottom: 10,
-              fontSize: 15,
-              fontWeight: '500',
-              flex: 1,
-            }}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic
-            inventore nulla assumenda, ullam maxime ut laudantium? Quaerat,
-            cupiditate quis, ea incidunt illo doloribus similique veniam odio
-            dolor non in possimus.
-          </Text>
-          {lengthMore ? (
-            <Text
-              onPress={toggleNumberOfLines}
-              style={{
-                lineHeight: 21,
-                position: 'absolute',
-                color: '#666',
-                fontWeight: '600',
-                right: 0,
-                top: 42,
-                backgroundColor: 'white',
-              }}>
-              {!textShown && '...see more'}
-            </Text>
-          ) : null}
+        <View
+          style={{
+            marginTop: 10,
+            marginRight: 20,
+            marginLeft: 20,
+            marginBottom: 10,
+          }}>
+          <MoreText>{profile?.user.authenticatedUser.about}</MoreText>
         </View>
       </CommonView>
       <CommonView>
@@ -246,21 +233,33 @@ function Profile() {
             fontWeight: '600',
             color: '#666',
           }}>
-          919 followers
+          {profile?.user.authenticatedUser.followers.length} followers
         </Text>
         <ActivityNavigation />
       </CommonView>
       <CommonView>
         <Title>Experience</Title>
-        <Experiences />
+        <Experiences
+          onSetCurrentExperience={setCurrentExperience}
+          idCurrentExperience={
+            profile?.user.authenticatedUser.experiences[0]?.company
+          }
+          data={profile?.user.authenticatedUser.experiences || []}
+        />
       </CommonView>
       <CommonView>
         <Title>Education</Title>
-        <Educations />
+        <Educations
+          onSetCurrentEducation={setCurrentEducation}
+          idCurrentEducation={
+            profile?.user.authenticatedUser.educations[0]?.school
+          }
+          data={profile?.user.authenticatedUser.educations || []}
+        />
       </CommonView>
       <CommonView>
         <Title>Skills</Title>
-        <Skills />
+        <Skills data={profile?.user.authenticatedUser.skills || []} />
       </CommonView>
       <View
         style={{

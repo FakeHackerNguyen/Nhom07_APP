@@ -2,19 +2,11 @@ import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import SingleExperience from './SingleExperience';
 
-const data = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-];
-
-export default function Experiences() {
+export default function Experiences({
+  data,
+  onSetCurrentExperience,
+  idCurrentExperience,
+}) {
   return (
     <FlatList
       style={{
@@ -22,7 +14,13 @@ export default function Experiences() {
         marginRight: 20,
       }}
       data={data}
-      renderItem={({item}) => <SingleExperience />}
+      renderItem={({item}) => (
+        <SingleExperience
+          item={item}
+          onSetCurrentExperience={onSetCurrentExperience}
+          idCurrentExperience={idCurrentExperience}
+        />
+      )}
       scrollEnabled={false}
     />
   );

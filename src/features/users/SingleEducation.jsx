@@ -1,19 +1,28 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import {Text, View, Image} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {getSchool} from '../../services/searchAuth';
+import MoreText from './MoreText';
 
-export default function SingleEducation() {
-  const [textShown, setTextShown] = useState(false); //To show ur remaining Text
-  const [lengthMore, setLengthMore] = useState(false); //to show the "Read more & Less Line"
+export default function SingleEducation({
+  item,
+  idCurrentEducation,
+  onSetCurrentEducation,
+}) {
+  const [school, setSchool] = useState({});
 
-  const toggleNumberOfLines = () => {
-    //To toggle the show text or hide it
-    setTextShown(!textShown);
-  };
+  useEffect(() => {
+    async function fetchSchool(item) {
+      if (item) {
+        const {data} = await getSchool({id: item.school});
+        setSchool(data);
+        if (idCurrentEducation === item.school) {
+          onSetCurrentEducation(data);
+        }
+      }
+    }
 
-  const onTextLayout = useCallback(e => {
-    setLengthMore(e.nativeEvent.lines.length >= 3); //to check the text is more than 4 lines or not
-    // console.log(e.nativeEvent);
-  }, []);
+    fetchSchool(item);
+  }, [item]);
 
   return (
     <View
@@ -30,7 +39,7 @@ export default function SingleEducation() {
           height: 50,
         }}
         source={{
-          uri: 'https://res.cloudinary.com/myshop-it/image/upload/v1708862021/companies/default-company_zlxp3l.png',
+          uri: school?.university?.avatar.url,
         }}
       />
       <View
@@ -38,69 +47,69 @@ export default function SingleEducation() {
           flex: 1,
         }}>
         <Text style={{fontSize: 18, fontWeight: 700}}>
-          Sookmyung Women's University
+          {school?.university?.name}
         </Text>
 
-        <Text style={{fontSize: 15, fontWeight: 500}}>
-          Master of Business Administration - MBA, Marketing
-        </Text>
+        {item?.fieldOfStudy && (
+          <Text style={{fontSize: 15, fontWeight: 500}}>
+            {item?.degree && <Text>{`${item.degree}, `}</Text>}
+            {item.fieldOfStudy}
+          </Text>
+        )}
 
-        <Text
-          style={{
-            color: '#666',
-            fontWeight: 600,
-          }}>
-          2012 - 2016
-        </Text>
+        {item?.startYear && item?.endYear && (
+          <Text
+            style={{
+              color: '#666',
+              fontWeight: 600,
+            }}>
+            {`${item.startYear} - ${item.endYear}`}
+          </Text>
+        )}
+
+        {item?.grade && (
+          <Text
+            style={{
+              marginTop: 5,
+              fontWeight: '500',
+            }}>
+            Grade: {item.grade}
+          </Text>
+        )}
+
+        {item?.activities && (
+          <Text
+            style={{
+              marginTop: 5,
+              lineHeight: 21,
+              fontSize: 15,
+              fontWeight: '500',
+            }}>
+            Activities and societies: {item.activities}
+          </Text>
+        )}
 
         <View
           style={{
             marginTop: 10,
           }}>
-          <Text
-            onTextLayout={onTextLayout}
-            numberOfLines={textShown ? undefined : 3}
-            style={{
-              lineHeight: 21,
-              flex: 1,
-              fontWeight: '500',
-              fontSize: 15,
-            }}>
-            Description: Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Nulla cupiditate labore vitae quibusdam itaque ipsam
-            provident, necessitatibus, rem hic accusantium deleniti repellat
-            aliquam. Nam voluptatum aliquam provident modi similique aut?
-          </Text>
-          {lengthMore ? (
-            <Text
-              onPress={toggleNumberOfLines}
-              style={{
-                lineHeight: 21,
-                position: 'absolute',
-                color: '#666',
-                fontWeight: '600',
-                right: 0,
-                top: 42,
-                backgroundColor: 'white',
-              }}>
-              {!textShown && '...see more'}
-            </Text>
-          ) : null}
+          <MoreText>{item?.description}</MoreText>
         </View>
-
-        <Text
-          style={{
-            fontWeight: 800,
-            marginTop: 10,
-          }}>
-          Skills:{' '}
+        {item?.skills?.length > 0 && (
           <Text
             style={{
-              fontWeight: 600,
+              fontWeight: 800,
+              marginTop: 10,
             }}>
-            Coaching, Training, Facilitation, Consulting
+            Skills:{' '}
+            <Text
+              style={{
+                fontWeight: 600,
+              }}>
+              {item.skills.join(', ')}
+            </Text>
           </Text>
-        </Text>
+        )}
       </View>
     </View>
   );

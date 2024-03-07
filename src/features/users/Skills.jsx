@@ -8,15 +8,7 @@ import {
   View,
 } from 'react-native';
 
-const data = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-];
-const Skills = () => {
+const Skills = ({data}) => {
   return (
     <>
       <FlatList
@@ -25,7 +17,7 @@ const Skills = () => {
           marginRight: 20,
         }}
         data={data}
-        renderItem={({items}) => (
+        renderItem={({item}) => (
           <>
             <View
               style={{
@@ -40,7 +32,7 @@ const Skills = () => {
                   fontSize: 18,
                   fontWeight: 700,
                 }}>
-                Public Speaking
+                {item}
               </Text>
             </View>
           </>

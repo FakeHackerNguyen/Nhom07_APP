@@ -57,12 +57,14 @@ export async function searchSchool({name}) {
 }
 
 export async function getCompany({id}) {
+  console.log(id);
+
   if (!id) {
-    return {data: [], errorMessage: ''};
+    return {data: {}, errorMessage: ''};
   }
 
   try {
-    const res = await fetch(`${baseUrlApi}/api/v1/companies/${id}}`, {
+    const res = await fetch(`${baseUrlApi}/api/v1/companies/${id}`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -76,13 +78,13 @@ export async function getCompany({id}) {
 
     return {data, errorMessage: ''};
   } catch (error) {
-    return {data: [], errorMessage: error.message};
+    return {data: {}, errorMessage: error.message};
   }
 }
 
 export async function getSchool({id}) {
   if (!id) {
-    return {data: [], errorMessage: ''};
+    return {data: {}, errorMessage: ''};
   }
 
   try {
@@ -100,7 +102,7 @@ export async function getSchool({id}) {
 
     return {data, errorMessage: ''};
   } catch (error) {
-    return {data: [], errorMessage: error.message};
+    return {data: {}, errorMessage: error.message};
   }
 }
 

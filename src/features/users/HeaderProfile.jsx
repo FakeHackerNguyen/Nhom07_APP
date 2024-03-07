@@ -13,6 +13,7 @@ const Header = styled.View`
   align-items: center;
   border-bottom-width: 1px;
   border-bottom-color: #e9e9e9;
+  background-color: #fff;
 `;
 export default function HeaderProfile() {
   return (

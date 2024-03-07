@@ -41,6 +41,9 @@ function UploadAvatar({data, selectedImage, onSetSelectedImage}) {
         },
       },
       res => {
+        if (res.didCancel) {
+          return;
+        }
         onSetSelectedImage(res.assets[0].uri);
       },
     );
