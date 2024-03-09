@@ -68,7 +68,16 @@ function BottomNavigation() {
       })}>
       <Tab.Screen name="home" component={Posts} />
       <Tab.Screen name="network" component={Network} />
-      <Tab.Screen name="post" component={CreatePost} />
+      <Tab.Screen
+        name="post"
+        component={CreatePost}
+        listeners={({navigation}) => ({
+          tabPress: e => {
+            e.preventDefault();
+            navigation.navigate('create-post');
+          },
+        })}
+      />
       <Tab.Screen name="notification" component={Notification} />
       <Tab.Screen name="job" component={Jobs} />
     </Tab.Navigator>

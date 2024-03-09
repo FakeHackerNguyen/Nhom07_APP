@@ -21,6 +21,7 @@ import Settings from './screens/Settings';
 import Group from './screens/Group';
 import CustomBackIcon from './ui/CustomBackIcon';
 import HeaderProfile from './features/users/HeaderProfile';
+import CreatePost from './features/posts/CreatePost';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,6 +54,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="create-post" component={CreatePost} />
         <Stack.Screen name="home" component={Home} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen
