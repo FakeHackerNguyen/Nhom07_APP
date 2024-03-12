@@ -9,7 +9,7 @@ import SliderSwitch from '../../ui/SliderSwitch';
 import EmploymentForm from '../../features/authentication/EmploymentForm';
 import StudentForm from '../../features/authentication/StudentForm';
 import Button from '../../ui/Button';
-import {updateInfoNewUser} from '../../services/userAuth';
+import {updateInfoNewUser} from '../../services/userApi';
 import Spinner from '../../ui/Spinner';
 
 const defaultProfile = {

@@ -1,4 +1,4 @@
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, Text, View} from 'react-native';
 import React from 'react';
 import styled from 'styled-components/native';
 
@@ -36,7 +36,7 @@ const InnerCircle = styled.View`
   position: absolute;
 `;
 
-const SingleOptionVisiblePost = ({option, onHandleCheckBox, checked}) => {
+const OptionModal = ({option, onHandleCheckBox, checked}) => {
   return (
     <Pressable
       style={{
@@ -101,4 +101,4 @@ const SingleOptionVisiblePost = ({option, onHandleCheckBox, checked}) => {
   );
 };
 
-export default SingleOptionVisiblePost;
+export default OptionModal;

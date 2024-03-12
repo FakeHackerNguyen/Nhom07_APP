@@ -9,7 +9,7 @@ import Input from '../../ui/Input';
 import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import {sendEmailVerification, verifyOtp} from '../../services/apiAuth';
-import {updateInfoNewUser} from '../../services/userAuth';
+import {updateInfoNewUser} from '../../services/userApi';
 
 function EmailVerification({navigation, route}) {
   const [otp, setOtp] = useState('');

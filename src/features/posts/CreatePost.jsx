@@ -5,14 +5,18 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
 import ModalVisiblePost from './ModalVisiblePost';
 import useLogin from '../authentication/useLogin';
+import ModalCommentControl from './ModalCommentControl';
+import {launchImageLibrary} from 'react-native-image-picker';
+import Spinner from '../../ui/Spinner';
+import {createPost} from '../../services/apiPost';
+import toast from 'react-hot-toast/headless';
 
 const Container = styled.View`
   flex-direction: row;
@@ -27,7 +31,7 @@ const Row = styled.View`
   gap: 15px;
 `;
 
-function Header({disabledPost, onOpenModal, post}) {
+function Header({disabledPost, onOpenModal, post, onUploadPost}) {
   const navigation = useNavigation();
 
   return (
@@ -60,7 +64,7 @@ function Header({disabledPost, onOpenModal, post}) {
               fontWeight: 700,
               color: '#696969',
             }}>
-            {post.type}
+            {post.visibility}
           </Text>
           <Image
             style={{
@@ -74,14 +78,15 @@ function Header({disabledPost, onOpenModal, post}) {
       </Row>
       <TouchableOpacity
         disabled={disabledPost}
+        onPress={onUploadPost}
         style={{
           paddingLeft: 10,
           paddingRight: 10,
           paddingTop: 5,
           paddingBottom: 5,
           borderWidth: 1,
-          borderColor: '#EAEAEA',
-          backgroundColor: '#EAEAEA',
+          borderColor: disabledPost && '#EAEAEA',
+          backgroundColor: disabledPost ? '#EAEAEA' : '#2D64BC',
           borderRadius: 25,
           marginRight: 20,
         }}>
@@ -89,7 +94,7 @@ function Header({disabledPost, onOpenModal, post}) {
           style={{
             fontSize: 16,
             fontWeight: 700,
-            color: '#a4a4a4',
+            color: disabledPost ? '#a4a4a4' : '#fff',
           }}>
           Post
         </Text>
@@ -98,21 +103,69 @@ function Header({disabledPost, onOpenModal, post}) {
   );
 }
 function CreatePost() {
-  const {profile} = useLogin();
   const [disabledPost, setDisabledPost] = useState(true);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisiblePost, setModalVisiblePost] = useState(false);
+  const [modalCommentControl, setModalCommentControl] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [post, setPost] = useState({
-    owner: profile?.user.authenticatedUser?._id,
-    description: '',
+    content: '',
     media: '',
-    type: 'Anyone',
+    visibility: 'Anyone',
+    commentControl: 'Anyone',
   });
 
   console.log(post);
 
   function handleChangeText(text) {
-    setPost({...post, description: text});
+    setPost({...post, content: text});
   }
+
+  function handleUploadImage() {
+    launchImageLibrary(
+      {
+        storageOptions: {
+          path: 'image',
+        },
+      },
+      res => {
+        if (res.didCancel) {
+          return;
+        }
+        setPost({...post, media: res.assets[0].uri});
+      },
+    );
+  }
+
+  async function uploadPost() {
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append('content', post.content);
+    formData.append('visibility', post.visibility);
+    formData.append('commentControl', post.commentControl);
+    post.media &&
+      formData.append('media', {
+        uri: post.media,
+        type: 'image/jpeg | image/png | image/jpg | video/mp4',
+        name: `media.${post.media.split('.').pop()}`,
+      });
+
+    const {errorMessage} = await createPost({
+      formData,
+    });
+    setIsLoading(false);
+
+    if (errorMessage) {
+      return toast.error(errorMessage);
+    }
+  }
+
+  useEffect(() => {
+    if (post.content.length > 0) {
+      setDisabledPost(false);
+    } else {
+      setDisabledPost(true);
+    }
+  }, [post.content]);
 
   return (
     <SafeAreaView
@@ -120,16 +173,25 @@ function CreatePost() {
         flex: 1,
         backgroundColor: '#fff',
       }}>
+      {isLoading && <Spinner />}
       <ModalVisiblePost
-        onCloseModal={() => setModalVisible(false)}
-        modalVisible={modalVisible}
+        onCloseModal={() => setModalVisiblePost(false)}
+        modalVisible={modalVisiblePost}
+        onSetData={setPost}
+        data={post}
+        onOpenCommentControlModal={() => setModalCommentControl(true)}
+      />
+      <ModalCommentControl
+        onCloseModal={() => setModalCommentControl(false)}
+        modalVisible={modalCommentControl}
         onSetData={setPost}
         data={post}
       />
       <Header
         disabledPost={disabledPost}
-        onOpenModal={() => setModalVisible(true)}
+        onOpenModal={() => setModalVisiblePost(true)}
         post={post}
+        onUploadPost={uploadPost}
       />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -148,11 +210,11 @@ function CreatePost() {
             height: '90%',
             paddingTop: 20,
           }}
-          placeholder="Share your thoughts"
+          placeholder="Share your thoughts..."
           placeholderTextColor="#666"
           onChangeText={text => handleChangeText(text)}
         />
-        <TouchableOpacity style={{marginLeft: 30}}>
+        <TouchableOpacity style={{marginLeft: 30}} onPress={handleUploadImage}>
           <Image
             style={{
               width: 25,

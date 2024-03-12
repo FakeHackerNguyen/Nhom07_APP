@@ -2,7 +2,7 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import useMoreText from './MoreText';
 import MoreText from './MoreText';
-import {getCompany} from '../../services/searchAuth';
+import {getCompany} from '../../services/searchApi';
 import {calculateExperience, formatDate} from '../../utils/helper';
 
 export default function SingleExperience({

@@ -6,7 +6,7 @@ import Logo from '../../ui/Logo';
 import Title from '../../ui/Title';
 import Button from '../../ui/Button';
 import UploadAvatar from '../../features/authentication/UploadAvatar';
-import {updateAvatar} from '../../services/userAuth';
+import {updateAvatar} from '../../services/userApi';
 import Spinner from '../../ui/Spinner';
 
 function UserAddAvatar({navigation, route}) {
@@ -20,7 +20,7 @@ function UserAddAvatar({navigation, route}) {
     formData.append('avatar', {
       uri: selectedImage,
       type: 'image/jpeg | image/png | image/jpg',
-      name: 'avatar.jpg',
+      name: 'avatar.png',
     });
 
     const {errorMessage} = await updateAvatar({

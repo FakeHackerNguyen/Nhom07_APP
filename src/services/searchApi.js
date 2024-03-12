@@ -57,8 +57,6 @@ export async function searchSchool({name}) {
 }
 
 export async function getCompany({id}) {
-  console.log(id);
-
   if (!id) {
     return {data: {}, errorMessage: ''};
   }

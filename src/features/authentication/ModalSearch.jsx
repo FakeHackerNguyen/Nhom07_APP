@@ -14,7 +14,7 @@ import {
   searchLocation,
   searchSchool,
   searchTitleJob,
-} from '../../services/searchAuth';
+} from '../../services/searchApi';
 import MiniSpinner from '../../ui/MiniSpinner';
 
 const ModalView = styled.View`

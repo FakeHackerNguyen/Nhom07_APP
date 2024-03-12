@@ -20,6 +20,10 @@ const optionsVisiblePost = [
     title: 'Connections only',
     icon: require('../../../assets/icons/network.png'),
   },
+  {
+    title: 'No one',
+    icon: require('../../../assets/icons/no-comment.png'),
+  },
 ];
 
 const ModalContainer = styled.View`
@@ -29,7 +33,7 @@ const ModalContainer = styled.View`
   height: 350px;
 `;
 
-const ModalVisiblePostContainer = styled.View`
+const ModalCommentControlContainer = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
@@ -40,13 +44,7 @@ const Overlay = styled.View`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const CustomModal = ({
-  isVisible,
-  onClose,
-  onSetData,
-  data,
-  onOpenCommentControlModal,
-}) => {
+const CustomModal = ({isVisible, onClose, onSetData, data}) => {
   const [isChecked, setChecked] = useState('Anyone');
 
   function handleCheckboxPress(type) {
@@ -62,7 +60,7 @@ const CustomModal = ({
       <TouchableWithoutFeedback
         onPress={() => {
           onClose();
-          onSetData({...data, visibility: isChecked});
+          onSetData({...data, commentControl: isChecked});
         }}>
         <Overlay />
       </TouchableWithoutFeedback>
@@ -89,7 +87,7 @@ const CustomModal = ({
               marginLeft: 20,
               marginBottom: 20,
             }}>
-            Who can see your post?
+            Comment control
           </Text>
           {optionsVisiblePost.map((option, index) => (
             <OptionModal
@@ -99,61 +97,26 @@ const CustomModal = ({
               checked={isChecked}
             />
           ))}
-
-          <TouchableOpacity
-            onPress={() => {
-              onOpenCommentControlModal();
-              onClose();
-              onSetData({...data, visible: isChecked});
-            }}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginLeft: 20,
-              marginRight: 30,
-            }}>
-            <View>
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: '700',
-                }}>
-                Comment control
-              </Text>
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: '#666',
-                  fontWeight: '600',
-                }}>
-                Anyone
-              </Text>
-            </View>
-            <Image source={require('../../../assets/icons/next.png')} />
-          </TouchableOpacity>
         </View>
       </ModalContainer>
     </Modal>
   );
 };
 
-export default function ModalVisiblePost({
+export default function ModalCommentControl({
   modalVisible,
   onCloseModal,
-  onOpenCommentControlModal,
   onSetData,
   data,
 }) {
   return (
-    <ModalVisiblePostContainer>
+    <ModalCommentControlContainer>
       <CustomModal
         isVisible={modalVisible}
         onClose={onCloseModal}
         onSetData={onSetData}
-        onOpenCommentControlModal={onOpenCommentControlModal}
         data={data}
       />
-    </ModalVisiblePostContainer>
+    </ModalCommentControlContainer>
   );
 }

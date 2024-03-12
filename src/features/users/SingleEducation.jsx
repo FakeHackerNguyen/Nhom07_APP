@@ -1,6 +1,6 @@
 import {Text, View, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {getSchool} from '../../services/searchAuth';
+import {getSchool} from '../../services/searchApi';
 import MoreText from './MoreText';
 
 export default function SingleEducation({
