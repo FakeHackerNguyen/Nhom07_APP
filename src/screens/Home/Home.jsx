@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Alert, Linking, Text, View} from 'react-native';
+import {Alert, Linking, StatusBar, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Slider from './Slider';
 import Logo from '../../ui/Logo';
@@ -9,6 +9,8 @@ import Spinner from '../../ui/Spinner';
 
 const Home = ({navigation}) => {
   const {isLoading, profile} = useLogin();
+  const heightStatusBar = StatusBar.currentHeight;
+  console.log(heightStatusBar);
 
   useEffect(() => {
     if (profile?.user) {
@@ -55,7 +57,7 @@ const Home = ({navigation}) => {
         </Button>
 
         <Button
-          borderWidth="1px"
+          borderWidth={1}
           colorText="#666"
           onHandlePress={() =>
             Alert.alert(

@@ -11,12 +11,12 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
 import ModalVisiblePost from './ModalVisiblePost';
-import useLogin from '../authentication/useLogin';
 import ModalCommentControl from './ModalCommentControl';
 import {launchImageLibrary} from 'react-native-image-picker';
 import Spinner from '../../ui/Spinner';
 import {createPost} from '../../services/apiPost';
 import toast from 'react-hot-toast/headless';
+import useLogin from '../authentication/useLogin';
 
 const Container = styled.View`
   flex-direction: row;
@@ -32,6 +32,7 @@ const Row = styled.View`
 `;
 
 function Header({disabledPost, onOpenModal, post, onUploadPost}) {
+  const {profile} = useLogin();
   const navigation = useNavigation();
 
   return (
@@ -49,7 +50,7 @@ function Header({disabledPost, onOpenModal, post, onUploadPost}) {
             width: 40,
             height: 40,
           }}
-          source={require('../../../assets/images/uploadAvatar.png')}
+          source={{uri: profile?.user.authenticatedUser.avatar.url}}
         />
         <TouchableOpacity
           onPress={onOpenModal}
@@ -102,7 +103,8 @@ function Header({disabledPost, onOpenModal, post, onUploadPost}) {
     </Container>
   );
 }
-function CreatePost() {
+
+function CreatePost({navigation}) {
   const [disabledPost, setDisabledPost] = useState(true);
   const [modalVisiblePost, setModalVisiblePost] = useState(false);
   const [modalCommentControl, setModalCommentControl] = useState(false);
@@ -157,6 +159,8 @@ function CreatePost() {
     if (errorMessage) {
       return toast.error(errorMessage);
     }
+
+    return navigation.navigate('main');
   }
 
   useEffect(() => {

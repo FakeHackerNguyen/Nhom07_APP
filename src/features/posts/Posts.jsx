@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import SinglePost from './SinglePost';
+import {useIsFocused} from '@react-navigation/native';
 
 const data = [
   {
@@ -46,6 +47,12 @@ const data = [
 
 function Posts() {
   const [scroll, setScroll] = useState(true);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) console.log('Post is focused');
+  }, [isFocused]);
+
   return (
     <FlatList
       data={data}
