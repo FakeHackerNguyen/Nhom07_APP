@@ -5,48 +5,15 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import Invitations from './Invitations';
-import {
-  confirmPendingConnection,
-  getPendingConnection,
-  rejectPendingConnection,
-} from '../../services/apiNetwork';
-import {useIsFocused} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Spinner from '../../ui/Spinner';
+import useInvitations from './useInvitations';
 
 const Network = () => {
-  const [invitations, setInvitations] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const isFocused = useIsFocused();
-  console.log('isFocused', isFocused);
-
-  async function fetchPendingConnection() {
-    setIsLoading(true);
-    const {data} = await getPendingConnection();
-    setIsLoading(false);
-    setInvitations(data);
-  }
-
-  async function confirmInvitation(connectionId) {
-    setIsLoading(true);
-    await confirmPendingConnection({connectionId: connectionId});
-    await fetchPendingConnection();
-    setIsLoading(false);
-  }
-
-  async function rejectInvitation(connectionId) {
-    setIsLoading(true);
-    await rejectPendingConnection({connectionId: connectionId});
-    await fetchPendingConnection();
-    setIsLoading(false);
-  }
-
-  useEffect(() => {
-    if (isFocused) {
-      fetchPendingConnection();
-    }
-  }, [isFocused]);
+  const navigation = useNavigation();
+  const {invitations, isLoading, confirmInvitation, rejectInvitation} =
+    useInvitations({page: 1, limit: 3, type: 'Received'});
 
   return (
     <ScrollView
@@ -55,6 +22,7 @@ const Network = () => {
       }}>
       {isLoading && <Spinner />}
       <TouchableOpacity
+        onPress={() => navigation.navigate('invitations')}
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -77,6 +45,7 @@ const Network = () => {
           invitations={invitations.data}
           onConfirmConnection={confirmInvitation}
           onRejectConnection={rejectInvitation}
+          scroll={false}
         />
       )}
       <TouchableOpacity

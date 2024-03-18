@@ -2,7 +2,7 @@ import {Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styled from 'styled-components/native';
 import CustomBackIcon from '../../ui/CustomBackIcon';
-import Search from '../../ui/Search';
+import InvitationNavigation from './InvitationNavigation';
 
 const Header = styled.View`
   height: 65px;
@@ -15,14 +15,16 @@ const Header = styled.View`
   background-color: #fff;
 `;
 
-export default function HeaderProfile() {
+const HeaderInvitations = ({onSetType}) => {
   return (
     <Header>
       <CustomBackIcon />
-      <Search />
+      <InvitationNavigation onSetType={onSetType} />
       <TouchableOpacity>
         <Image source={require('../../../assets/icons/settings.png')} />
       </TouchableOpacity>
     </Header>
   );
-}
+};
+
+export default HeaderInvitations;

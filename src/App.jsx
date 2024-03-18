@@ -22,7 +22,8 @@ import Group from './screens/Group';
 import CustomBackIcon from './ui/CustomBackIcon';
 import HeaderProfile from './features/users/HeaderProfile';
 import CreatePost from './features/posts/CreatePost';
-import Invitations from './screens/Invitations';
+import InvitationScreen from './screens/InvitationScreen';
+import HeaderInvitations from './features/network/HeaderInvitations';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,24 +56,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen
-          name="invitations"
-          component={Invitations}
-          options={{
-            headerShown: true,
-            header: () => <HeaderProfile />,
-          }}
-        />
         <Stack.Screen name="home" component={Home} />
         <Stack.Screen name="login" component={Login} />
-        <Stack.Screen
-          name="profile"
-          component={Profile}
-          options={{
-            headerShown: true,
-            header: () => <HeaderProfile />,
-          }}
-        />
+        <Stack.Screen name="profile" component={Profile} />
 
         <Stack.Screen name="forgot" component={ForgotPassword} />
         <Stack.Screen name="otp" component={OTPVerification} />
@@ -89,17 +75,10 @@ export default function App() {
         />
 
         <Stack.Screen name="main" component={MainStack} />
-        <Stack.Screen
-          name="settings"
-          component={Settings}
-          options={{
-            headerShown: true,
-            title: '',
-            headerLeft: () => <CustomBackIcon />,
-          }}
-        />
+        <Stack.Screen name="settings" component={Settings} />
         <Stack.Screen name="group" component={Group} />
         <Stack.Screen name="create-post" component={CreatePost} />
+        <Stack.Screen name="invitations" component={InvitationScreen} />
       </Stack.Navigator>
       <Notifications />
     </NavigationContainer>

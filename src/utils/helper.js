@@ -41,7 +41,7 @@ function calculateTimeAgo(date) {
 
   // day ago
   if (timeAgo >= 1) {
-    result = `${timeAgo} days ago`;
+    result = `${Math.floor(timeAgo)} days ago`;
   }
 
   // hour ago

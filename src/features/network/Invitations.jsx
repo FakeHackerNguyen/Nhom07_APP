@@ -1,19 +1,27 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList} from 'react-native';
 import React, {useState} from 'react';
 import SingleInvitation from './SingleInvitation';
 
-const Invitations = ({
+function Invitations({
   invitations,
   onRejectConnection,
   onConfirmConnection,
-}) => {
+  onFetchPendingConnection,
+  scroll,
+}) {
+  // const [next, setNext] = useState(1);
+
   return (
     <FlatList
       style={{
         backgroundColor: '#fff',
         paddingBottom: 20,
       }}
-      scrollEnabled={false}
+      // onScrollEndDrag={() => {
+      //   onFetchPendingConnection(next);
+      //   setNext(prev => prev + 1);
+      // }}
+      scrollEnabled={scroll}
       data={invitations}
       renderItem={({item}) => (
         <SingleInvitation
@@ -24,6 +32,6 @@ const Invitations = ({
       )}
     />
   );
-};
+}
 
 export default Invitations;

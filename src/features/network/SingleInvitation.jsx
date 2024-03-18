@@ -1,10 +1,6 @@
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {calculateTimeAgo} from '../../utils/helper';
-import {
-  confirmPendingConnection,
-  rejectPendingConnection,
-} from '../../services/apiNetwork';
 
 const SingleInvitation = ({
   invitation,
@@ -38,7 +34,7 @@ const SingleInvitation = ({
         }}>
         <Image
           source={{
-            uri: invitation.recipient.avatar.url,
+            uri: invitation?.recipient.avatar.url,
           }}
           style={{
             width: 70,
@@ -59,7 +55,7 @@ const SingleInvitation = ({
               fontWeight: '700',
               fontSize: 18,
             }}>
-            {invitation.recipient.fullName}
+            {invitation?.recipient.fullName}
           </Text>
           <Text
             style={{
@@ -67,7 +63,7 @@ const SingleInvitation = ({
               fontSize: 15,
             }}>
             {/* Fullstack Engineering at abc xyz */}
-            {invitation.recipient.experiences[0].headline}
+            {invitation?.recipient.experiences[0].headline}
           </Text>
           <Text
             style={{
@@ -76,7 +72,7 @@ const SingleInvitation = ({
               fontWeight: '500',
               marginTop: 5,
             }}>
-            {calculateTimeAgo(invitation.createdAt)}
+            {calculateTimeAgo(invitation?.createdAt)}
           </Text>
         </View>
         <View
@@ -109,7 +105,7 @@ const SingleInvitation = ({
             fontWeight: '600',
             lineHeight: 21,
           }}>
-          {invitation.note}
+          {invitation?.note}
         </Text>
         {lengthMore ? (
           <TouchableOpacity onPress={toggleNumberOfLines}>
