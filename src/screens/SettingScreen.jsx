@@ -3,7 +3,7 @@ import React from 'react';
 import useLogin from '../features/authentication/useLogin';
 import styled from 'styled-components/native';
 import settings from '../constants/Settings';
-import BottomNavigation from './Main/BottomNavigation';
+import BottomNavigation from './MainScreen/BottomNavigation';
 import HeaderSetting from '../features/settings/HeaderSetting';
 
 const Row = styled.TouchableOpacity`

@@ -9,8 +9,6 @@ import Spinner from '../../ui/Spinner';
 
 const Home = ({navigation}) => {
   const {isLoading, profile} = useLogin();
-  const heightStatusBar = StatusBar.currentHeight;
-  console.log(heightStatusBar);
 
   useEffect(() => {
     if (profile?.user) {

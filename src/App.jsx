@@ -4,26 +4,27 @@ import SplashScreen from 'react-native-splash-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Notifications from './ui/Toast';
-import Home from './screens/Home/Home';
-import Login from './screens/Login';
-import Profile from './screens/Profile';
-import ForgotPassword from './screens/ForgotPassword/ForgotPassword';
-import OTPVerification from './screens/ForgotPassword/OTPVerification';
-import ConfirmPassword from './screens/ForgotPassword/ConfirmPassword';
-import UserAddName from './screens/Users/UserAddName';
-import UserAddLocation from './screens/Users/UserAddLocation';
-import UserAddProfile from './screens/Users/UserAddProfile';
-import UserAddAvatar from './screens/Users/UserAddAvatar';
-import UserAddEmail from './screens/Users/UserAddEmail';
-import EmailVerification from './screens/Users/EmailVerification';
-import MainStack from './screens/Main/MainStack';
-import Settings from './screens/Settings';
-import Group from './screens/Group';
-import CustomBackIcon from './ui/CustomBackIcon';
-import HeaderProfile from './features/users/HeaderProfile';
+import Home from './screens/HomeScreen/Home';
+import LoginScreen from './screens/LoginScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import ForgotPassword from './screens/ForgotPasswordScreen/ForgotPassword';
+import OTPVerification from './screens/ForgotPasswordScreen/OTPVerification';
+import ConfirmPassword from './screens/ForgotPasswordScreen/ConfirmPassword';
+import UserAddName from './screens/UserScreen/UserAddName';
+import UserAddLocation from './screens/UserScreen/UserAddLocation';
+import UserAddProfile from './screens/UserScreen/UserAddProfile';
+import UserAddAvatar from './screens/UserScreen/UserAddAvatar';
+import UserAddEmail from './screens/UserScreen/UserAddEmail';
+import EmailVerification from './screens/UserScreen/EmailVerification';
+import MainStack from './screens/MainScreen/MainStack';
+import SettingScreen from './screens/SettingScreen';
+import GroupScreen from './screens/GroupScreen';
 import CreatePost from './features/posts/CreatePost';
 import InvitationScreen from './screens/InvitationScreen';
-import HeaderInvitations from './features/network/HeaderInvitations';
+import ManageNetworkScreen from './screens/ManageNetworkScreen';
+import CustomBackIcon from './ui/CustomBackIcon';
+import ConnectionScreen from './screens/ConnectionScreen';
+import PeopleFollowScreen from './screens/PeopleFollowScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,8 +58,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="home" component={Home} />
-        <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="profile" component={Profile} />
+        <Stack.Screen name="login" component={LoginScreen} />
+        <Stack.Screen name="profile" component={ProfileScreen} />
 
         <Stack.Screen name="forgot" component={ForgotPassword} />
         <Stack.Screen name="otp" component={OTPVerification} />
@@ -75,10 +76,43 @@ export default function App() {
         />
 
         <Stack.Screen name="main" component={MainStack} />
-        <Stack.Screen name="settings" component={Settings} />
-        <Stack.Screen name="group" component={Group} />
+        <Stack.Screen name="settings" component={SettingScreen} />
+        <Stack.Screen name="group" component={GroupScreen} />
         <Stack.Screen name="create-post" component={CreatePost} />
         <Stack.Screen name="invitations" component={InvitationScreen} />
+        <Stack.Screen
+          name="manage-network"
+          component={ManageNetworkScreen}
+          options={{
+            headerShown: true,
+            title: 'Manage my network',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {fontSize: 20, fontWeight: '700'},
+            headerLeft: () => <CustomBackIcon />,
+          }}
+        />
+        <Stack.Screen
+          name="connections"
+          component={ConnectionScreen}
+          options={{
+            headerShown: true,
+            title: 'Connections',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {fontSize: 20, fontWeight: '700'},
+            headerLeft: () => <CustomBackIcon />,
+          }}
+        />
+        <Stack.Screen
+          name="following-peoples"
+          component={PeopleFollowScreen}
+          options={{
+            headerShown: true,
+            title: 'People | follow',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {fontSize: 20, fontWeight: '700'},
+            headerLeft: () => <CustomBackIcon />,
+          }}
+        />
       </Stack.Navigator>
       <Notifications />
     </NavigationContainer>

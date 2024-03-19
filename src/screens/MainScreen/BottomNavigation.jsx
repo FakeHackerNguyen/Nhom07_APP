@@ -1,9 +1,9 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Posts from '../../features/posts/Posts';
-import Network from '../../features/network/Network';
+import NetworkScreen from '../NetworkScreen';
 import CreatePost from '../../features/posts/CreatePost';
-import Notification from '../Notification';
+import NotificationScreen from '../NotificationScreen';
 import Jobs from '../../features/jobs/Jobs';
 import SingleTab from './SingleTab';
 
@@ -67,7 +67,7 @@ function BottomNavigation() {
         },
       })}>
       <Tab.Screen name="home" component={Posts} />
-      <Tab.Screen name="network" component={Network} />
+      <Tab.Screen name="network" component={NetworkScreen} />
       <Tab.Screen
         name="post"
         component={CreatePost}
@@ -78,7 +78,7 @@ function BottomNavigation() {
           },
         })}
       />
-      <Tab.Screen name="notification" component={Notification} />
+      <Tab.Screen name="notification" component={NotificationScreen} />
       <Tab.Screen name="job" component={Jobs} />
     </Tab.Navigator>
   );

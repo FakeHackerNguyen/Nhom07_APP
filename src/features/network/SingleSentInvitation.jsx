@@ -2,7 +2,11 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {calculateTimeAgo} from '../../utils/helper';
 
-const SingleSentInvitation = ({sentInvitation, onWithdrawSentConnection}) => {
+const SingleSentInvitation = ({
+  sentInvitation,
+  onWithdrawSentConnection,
+  onFetchSentConnection,
+}) => {
   return (
     <View
       style={{
@@ -61,7 +65,9 @@ const SingleSentInvitation = ({sentInvitation, onWithdrawSentConnection}) => {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => onWithdrawSentConnection(sentInvitation?._id)}>
+          onPress={() => {
+            onWithdrawSentConnection(sentInvitation?._id);
+          }}>
           <Text
             style={{
               color: '#676767',

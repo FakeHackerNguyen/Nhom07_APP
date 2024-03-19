@@ -5,10 +5,10 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import Invitations from './Invitations';
+import Invitations from '../features/network/Invitations';
 import {useNavigation} from '@react-navigation/native';
-import Spinner from '../../ui/Spinner';
-import useInvitations from './useInvitations';
+import Spinner from '../ui/Spinner';
+import useInvitations from '../features/network/useInvitations';
 
 const Network = () => {
   const navigation = useNavigation();
@@ -38,7 +38,7 @@ const Network = () => {
           }}>
           Invitation <Text>({invitations.count})</Text>
         </Text>
-        <Image source={require('../../../assets/icons/next.png')} />
+        <Image source={require('../../assets/icons/next.png')} />
       </TouchableOpacity>
       {invitations?.data?.length > 0 && (
         <Invitations
@@ -49,6 +49,7 @@ const Network = () => {
         />
       )}
       <TouchableOpacity
+        onPress={() => navigation.navigate('manage-network')}
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -63,7 +64,7 @@ const Network = () => {
           }}>
           Manage my network
         </Text>
-        <Image source={require('../../../assets/icons/next.png')} />
+        <Image source={require('../../assets/icons/next.png')} />
       </TouchableOpacity>
     </ScrollView>
   );
