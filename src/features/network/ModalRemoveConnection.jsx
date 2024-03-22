@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import styled from 'styled-components/native';
+import {removeConnection} from '../../services/apiNetwork';
 
 const ModalContainer = styled.View`
   align-items: center;
@@ -22,7 +23,7 @@ const Overlay = styled.View`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-function ModalRemoveConnection({onCloseModal}) {
+function ModalRemoveConnection({onCloseModal, onRemoveConnection}) {
   return (
     <Modal
       animationType="fade"
@@ -43,6 +44,7 @@ function ModalRemoveConnection({onCloseModal}) {
           }}
         />
         <TouchableOpacity
+          onPress={onRemoveConnection}
           style={{
             alignSelf: 'flex-start',
             flexDirection: 'row',

@@ -55,8 +55,7 @@ function ManageNetworkScreen({navigation}) {
         <Row
           onPress={() =>
             navigation.navigate('connections', {
-              connections: connections.data,
-              count: connections.count,
+              connections: connections,
             })
           }>
           <View
@@ -80,8 +79,7 @@ function ManageNetworkScreen({navigation}) {
         <Row
           onPress={() =>
             navigation.navigate('following-peoples', {
-              following: following.data,
-              count: following.count,
+              following: following,
             })
           }
           style={{

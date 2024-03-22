@@ -3,11 +3,29 @@ import React, {useState} from 'react';
 import SingleConnection from '../features/network/SingleConnection';
 import SearchConnection from '../features/network/SearchConnection';
 import ModalRemoveConnection from '../features/network/ModalRemoveConnection';
+import Spinner from '../ui/Spinner';
+import {removeConnection} from '../services/apiNetwork';
 
 const ConnectionScreen = ({route}) => {
   const [showSearch, setShowSearch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const {connections, count} = route.params;
+  const [selectedConnection, setSelectedConnection] = useState(null);
+  const {connections: cons} = route.params;
+  const [connections, setConnections] = useState(cons);
+
+  async function handleRemoveConnection() {
+    await removeConnection({connectionId: selectedConnection._id});
+
+    setConnections(prevConnection => {
+      return {
+        data: prevConnection.data.filter(
+          connection => connection._id !== selectedConnection._id,
+        ),
+        count: prevConnection.count - 1,
+      };
+    });
+    setModalVisible(false);
+  }
 
   return (
     <View
@@ -16,7 +34,11 @@ const ConnectionScreen = ({route}) => {
       }}>
       {showSearch && <SearchConnection onSetShowSearch={setShowSearch} />}
       {modalVisible && (
-        <ModalRemoveConnection onCloseModal={() => setModalVisible(false)} />
+        <ModalRemoveConnection
+          selectedConnection={selectedConnection}
+          onRemoveConnection={handleRemoveConnection}
+          onCloseModal={() => setModalVisible(false)}
+        />
       )}
       {!showSearch && (
         <View
@@ -35,7 +57,7 @@ const ConnectionScreen = ({route}) => {
               color: '#666',
               fontWeight: '600',
             }}>
-            {count} connections
+            {connections.count} connections
           </Text>
           <View
             style={{
@@ -53,12 +75,14 @@ const ConnectionScreen = ({route}) => {
         </View>
       )}
       <FlatList
-        s
-        data={connections}
+        data={connections.data}
         renderItem={({item}) => (
           <SingleConnection
             connection={item}
-            onOpenModal={() => setModalVisible(true)}
+            onOpenModal={() => {
+              setModalVisible(true);
+              setSelectedConnection(item);
+            }}
           />
         )}
       />

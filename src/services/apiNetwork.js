@@ -148,6 +148,30 @@ export async function getConnections({page = 1, limit = 3}) {
   }
 }
 
+export async function removeConnection({connectionId}) {
+  const accessToken = await AsyncStorage.getItem('accessToken');
+  try {
+    const res = await fetch(
+      `${baseUrlApi}/api/v1/connections/${connectionId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: 'same-origin',
+      },
+    );
+
+    const data = await res.json();
+    if (data.error) {
+      throw new Error(data.message);
+    }
+
+    return {data, errorMessage: ''};
+  } catch (error) {
+    return {data: null, errorMessage: error.message};
+  }
+}
 export async function getFollowingPeople({page = 1, limit = 3}) {
   const accessToken = await AsyncStorage.getItem('accessToken');
   try {
