@@ -1,6 +1,9 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
+import {useIsFocused} from '@react-navigation/native';
+import {getConnections, getFollowingPeople} from '../services/apiNetwork';
+import Spinner from '../ui/Spinner';
 
 const Row = styled.TouchableOpacity`
   flex-direction: row;
@@ -21,45 +24,82 @@ const Amount = styled.Text`
 `;
 
 function ManageNetworkScreen({navigation}) {
+  const [connections, setConnections] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const isFocused = useIsFocused();
+
+  async function fetchConnectionsAndFollowing() {
+    setIsLoading(true);
+    const {data: con} = await getConnections({page: 1, limit: 5});
+    const {data: fol} = await getFollowingPeople({page: 1, limit: 5});
+
+    setIsLoading(false);
+    setConnections(con);
+    setFollowing(fol);
+  }
+
+  useEffect(() => {
+    if (isFocused) {
+      fetchConnectionsAndFollowing();
+    }
+  }, [isFocused]);
+
   return (
     <View
       style={{
         backgroundColor: '#fff',
       }}>
-      <Row onPress={() => navigation.navigate('connections')}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 25,
-          }}>
-          <Image
+      {isLoading && <Spinner />}
+      {connections.count > 0 && (
+        <Row
+          onPress={() =>
+            navigation.navigate('connections', {
+              connections: connections.data,
+              count: connections.count,
+            })
+          }>
+          <View
             style={{
-              tintColor: '#666',
-            }}
-            source={require('../../assets/icons/network.png')}
-          />
-          <StyledText>Connections</StyledText>
-        </View>
-        <Amount>0</Amount>
-      </Row>
-      <Row
-        onPress={() => navigation.navigate('following-peoples')}
-        style={{
-          borderTopWidth: 1,
-          borderColor: '#ddd',
-        }}>
-        <View
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 25,
+            }}>
+            <Image
+              style={{
+                tintColor: '#666',
+              }}
+              source={require('../../assets/icons/network.png')}
+            />
+            <StyledText>Connections</StyledText>
+          </View>
+          <Amount>{connections.count}</Amount>
+        </Row>
+      )}
+      {following.count > 0 && (
+        <Row
+          onPress={() =>
+            navigation.navigate('following-peoples', {
+              following: following.data,
+              count: following.count,
+            })
+          }
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 25,
+            borderTopWidth: 1,
+            borderColor: '#ddd',
           }}>
-          <Image source={require('../../assets/icons/people.png')} />
-          <StyledText>People | follow</StyledText>
-        </View>
-        <Amount>0</Amount>
-      </Row>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 25,
+            }}>
+            <Image source={require('../../assets/icons/people.png')} />
+            <StyledText>People | follow</StyledText>
+          </View>
+          <Amount>{following.count}</Amount>
+        </Row>
+      )}
     </View>
   );
 }

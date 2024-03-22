@@ -2,9 +2,12 @@ import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import SingleConnection from '../features/network/SingleConnection';
 import SearchConnection from '../features/network/SearchConnection';
+import ModalRemoveConnection from '../features/network/ModalRemoveConnection';
 
-const ConnectionScreen = () => {
+const ConnectionScreen = ({route}) => {
   const [showSearch, setShowSearch] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const {connections, count} = route.params;
 
   return (
     <View
@@ -12,6 +15,9 @@ const ConnectionScreen = () => {
         backgroundColor: '#fff',
       }}>
       {showSearch && <SearchConnection onSetShowSearch={setShowSearch} />}
+      {modalVisible && (
+        <ModalRemoveConnection onCloseModal={() => setModalVisible(false)} />
+      )}
       {!showSearch && (
         <View
           style={{
@@ -29,7 +35,7 @@ const ConnectionScreen = () => {
               color: '#666',
               fontWeight: '600',
             }}>
-            2 connections
+            {count} connections
           </Text>
           <View
             style={{
@@ -46,7 +52,16 @@ const ConnectionScreen = () => {
           </View>
         </View>
       )}
-      <FlatList s data={[1, 2]} renderItem={({item}) => <SingleConnection />} />
+      <FlatList
+        s
+        data={connections}
+        renderItem={({item}) => (
+          <SingleConnection
+            connection={item}
+            onOpenModal={() => setModalVisible(true)}
+          />
+        )}
+      />
     </View>
   );
 };

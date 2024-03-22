@@ -1,8 +1,7 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
-import {calculateTimeAgo} from '../../utils/helper';
 
-const SingleFollowingPeople = () => {
+const SingleFollowingPeople = ({following}) => {
   return (
     <View
       style={{
@@ -43,19 +42,19 @@ const SingleFollowingPeople = () => {
                 fontWeight: '700',
                 fontSize: 18,
               }}>
-              Nguyen Toan
+              {following.fullName}
             </Text>
             <Text
               style={{
                 fontWeight: '500',
                 fontSize: 15,
               }}>
-              Fullstack Engineering at abc xyz
+              {following.experiences[0].headline}
             </Text>
           </View>
         </View>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             borderWidth: 1,
             borderColor: '#2D64BC',
@@ -72,9 +71,9 @@ const SingleFollowingPeople = () => {
             }}>
             Follow
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={{
             borderWidth: 1,
             borderColor: '#666',
@@ -87,11 +86,11 @@ const SingleFollowingPeople = () => {
             style={{
               color: '#666',
               fontWeight: '800',
-              fontSize: 16,
+              fontSize: 18,
             }}>
             Following
           </Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     </View>
   );

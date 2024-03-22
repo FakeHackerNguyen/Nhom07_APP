@@ -2,7 +2,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import {calculateTimeAgo} from '../../utils/helper';
 
-const SingleConnection = () => {
+const SingleConnection = ({connection, onOpenModal}) => {
   return (
     <View
       style={{
@@ -22,7 +22,7 @@ const SingleConnection = () => {
             flexDirection: 'row',
           }}>
           <Image
-            source={require('../../../assets/images/uploadAvatar.png')}
+            source={{uri: connection.recipient.avatar.url}}
             style={{
               width: 50,
               height: 50,
@@ -43,14 +43,14 @@ const SingleConnection = () => {
                 fontWeight: '700',
                 fontSize: 18,
               }}>
-              Nguyen Toan
+              {connection.recipient.fullName}
             </Text>
             <Text
               style={{
                 fontWeight: '500',
                 fontSize: 15,
               }}>
-              Fullstack Engineering at abc xyz
+              {connection.recipient.experiences[0].headline}
             </Text>
             <Text
               style={{
@@ -59,8 +59,7 @@ const SingleConnection = () => {
                 fontWeight: '500',
                 marginTop: 5,
               }}>
-              {/* {`Sent ${calculateTimeAgo(sentInvitation?.createdAt)}`} */}
-              {`Connected 3 days ago`}
+              {`Sent ${calculateTimeAgo(connection?.createdAt)}`}
             </Text>
           </View>
         </View>
@@ -71,7 +70,7 @@ const SingleConnection = () => {
             gap: 20,
             alignItems: 'center',
           }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onOpenModal}>
             <Image source={require('../../../assets/icons/dot.png')} />
           </TouchableOpacity>
           <TouchableOpacity

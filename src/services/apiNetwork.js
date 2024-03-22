@@ -123,3 +123,51 @@ export async function withdrawSentConnection({connectionId}) {
     return {data: null, errorMessage: error.message};
   }
 }
+
+export async function getConnections({page = 1, limit = 3}) {
+  const accessToken = await AsyncStorage.getItem('accessToken');
+  try {
+    const res = await fetch(
+      `${baseUrlApi}/api/v1/connections?page=${page}&limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: 'same-origin',
+      },
+    );
+
+    const data = await res.json();
+    if (data.error) {
+      throw new Error(data.message);
+    }
+
+    return {data, errorMessage: ''};
+  } catch (error) {
+    return {data: null, errorMessage: error.message};
+  }
+}
+
+export async function getFollowingPeople({page = 1, limit = 3}) {
+  const accessToken = await AsyncStorage.getItem('accessToken');
+  try {
+    const res = await fetch(
+      `${baseUrlApi}/api/v1/connections/following?page=${page}&limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: 'same-origin',
+      },
+    );
+
+    const data = await res.json();
+    if (data.error) {
+      throw new Error(data.message);
+    }
+
+    return {data, errorMessage: ''};
+  } catch (error) {
+    return {data: [], errorMessage: error.message};
+  }
+}
