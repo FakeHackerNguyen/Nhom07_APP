@@ -22,7 +22,7 @@ const SingleConnection = ({connection, onOpenModal}) => {
             flexDirection: 'row',
           }}>
           <Image
-            source={{uri: connection.recipient.avatar.url}}
+            source={{uri: connection.user.avatar.url}}
             style={{
               width: 50,
               height: 50,
@@ -43,14 +43,14 @@ const SingleConnection = ({connection, onOpenModal}) => {
                 fontWeight: '700',
                 fontSize: 18,
               }}>
-              {connection.recipient.fullName}
+              {connection.user.fullName}
             </Text>
             <Text
               style={{
                 fontWeight: '500',
                 fontSize: 15,
               }}>
-              {connection.recipient.experiences[0].headline}
+              {connection.user.experiences[0].headline}
             </Text>
             <Text
               style={{
