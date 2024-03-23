@@ -32,8 +32,6 @@ const CommonView = styled.View`
 
 function Profile() {
   const {profile} = useLogin();
-  const [currentExperience, setCurrentExperience] = useState({});
-  const [currentEducation, setCurrentEducation] = useState({});
 
   return (
     <View
@@ -126,7 +124,7 @@ function Profile() {
                   fontSize: 16,
                   fontWeight: 500,
                 }}>
-                {currentExperience?.company?.name}
+                {profile?.user.authenticatedUser.experiences[0]?.company?.name}
               </Text>
               <View
                 style={{
@@ -137,7 +135,7 @@ function Profile() {
                 }}
               />
               <Text style={{fontWeight: 600}}>
-                {currentEducation?.university?.name}
+                {profile?.user.authenticatedUser.educations[0]?.school?.name}
               </Text>
             </View>
 
@@ -244,22 +242,12 @@ function Profile() {
         <CommonView>
           <Title>Experience</Title>
           <Experiences
-            onSetCurrentExperience={setCurrentExperience}
-            idCurrentExperience={
-              profile?.user.authenticatedUser.experiences[0]?.company
-            }
             data={profile?.user.authenticatedUser.experiences || []}
           />
         </CommonView>
         <CommonView>
           <Title>Education</Title>
-          <Educations
-            onSetCurrentEducation={setCurrentEducation}
-            idCurrentEducation={
-              profile?.user.authenticatedUser.educations[0]?.school
-            }
-            data={profile?.user.authenticatedUser.educations || []}
-          />
+          <Educations data={profile?.user.authenticatedUser.educations || []} />
         </CommonView>
         <CommonView>
           <Title>Skills</Title>

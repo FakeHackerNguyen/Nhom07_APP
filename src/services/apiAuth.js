@@ -48,7 +48,7 @@ export async function logout() {
 export async function checkAuth() {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken');
-    const res = await fetch(`${baseUrlApi}/api/v1/users/auth`, {
+    const res = await fetch(`${baseUrlApi}/api/v1/auth`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,

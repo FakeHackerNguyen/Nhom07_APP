@@ -1,29 +1,8 @@
 import {Text, View, Image} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {getSchool} from '../../services/searchApi';
+import React from 'react';
 import MoreText from './MoreText';
 
-export default function SingleEducation({
-  item,
-  idCurrentEducation,
-  onSetCurrentEducation,
-}) {
-  const [school, setSchool] = useState({});
-
-  useEffect(() => {
-    async function fetchSchool(item) {
-      if (item) {
-        const {data} = await getSchool({id: item.school});
-        setSchool(data);
-        if (idCurrentEducation === item.school) {
-          onSetCurrentEducation(data);
-        }
-      }
-    }
-
-    fetchSchool(item);
-  }, [item]);
-
+export default function SingleEducation({item}) {
   return (
     <View
       style={{
@@ -39,25 +18,23 @@ export default function SingleEducation({
           height: 50,
         }}
         source={{
-          uri: school?.university?.avatar.url,
+          uri: item.school.avatar.url,
         }}
       />
       <View
         style={{
           flex: 1,
         }}>
-        <Text style={{fontSize: 18, fontWeight: 700}}>
-          {school?.university?.name}
-        </Text>
+        <Text style={{fontSize: 18, fontWeight: 700}}>{item.school.name}</Text>
 
-        {item?.fieldOfStudy && (
+        {item.fieldOfStudy && (
           <Text style={{fontSize: 15, fontWeight: 500}}>
-            {item?.degree && <Text>{`${item.degree}, `}</Text>}
+            {item.degree && <Text>{`${item.degree}, `}</Text>}
             {item.fieldOfStudy}
           </Text>
         )}
 
-        {item?.startYear && item?.endYear && (
+        {item.startYear && item.endYear && (
           <Text
             style={{
               color: '#666',
@@ -67,7 +44,7 @@ export default function SingleEducation({
           </Text>
         )}
 
-        {item?.grade && (
+        {item.grade && (
           <Text
             style={{
               marginTop: 5,
@@ -77,7 +54,7 @@ export default function SingleEducation({
           </Text>
         )}
 
-        {item?.activities && (
+        {item.activities && (
           <Text
             style={{
               marginTop: 5,
@@ -93,9 +70,9 @@ export default function SingleEducation({
           style={{
             marginTop: 10,
           }}>
-          <MoreText>{item?.description}</MoreText>
+          <MoreText>{item.description}</MoreText>
         </View>
-        {item?.skills?.length > 0 && (
+        {item.skills?.length > 0 && (
           <Text
             style={{
               fontWeight: 800,

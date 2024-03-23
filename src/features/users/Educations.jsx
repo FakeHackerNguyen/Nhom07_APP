@@ -9,11 +9,7 @@ import {
 import React from 'react';
 import SingleEducation from './SingleEducation';
 
-export default function Educations({
-  data,
-  onSetCurrentEducation,
-  idCurrentEducation,
-}) {
+export default function Educations({data}) {
   return (
     <>
       <FlatList
@@ -22,13 +18,7 @@ export default function Educations({
           marginRight: 20,
         }}
         data={data}
-        renderItem={({item}) => (
-          <SingleEducation
-            item={item}
-            onSetCurrentEducation={onSetCurrentEducation}
-            idCurrentEducation={idCurrentEducation}
-          />
-        )}
+        renderItem={({item}) => <SingleEducation item={item} />}
         scrollEnabled={false}
       />
       <TouchableOpacity

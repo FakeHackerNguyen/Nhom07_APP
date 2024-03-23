@@ -1,30 +1,9 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
-import useMoreText from './MoreText';
+import {Text, View, Image} from 'react-native';
+import React from 'react';
 import MoreText from './MoreText';
-import {getCompany} from '../../services/searchApi';
 import {calculateExperience, formatDate} from '../../utils/helper';
 
-export default function SingleExperience({
-  item,
-  onSetCurrentExperience,
-  idCurrentExperience,
-}) {
-  const [company, setCompany] = useState({});
-
-  useEffect(() => {
-    async function fetchCompany(item) {
-      if (item) {
-        const {data} = await getCompany({id: item.company});
-        setCompany(data);
-        if (idCurrentExperience === item.company) {
-          onSetCurrentExperience(data);
-        }
-      }
-    }
-
-    fetchCompany(item);
-  }, [item]);
+export default function SingleExperience({item}) {
   return (
     <View
       style={{
@@ -40,20 +19,20 @@ export default function SingleExperience({
           height: 50,
         }}
         source={{
-          uri: company?.company?.avatar.url,
+          uri: item.company.avatar.url,
         }}
       />
       <View
         style={{
           flex: 1,
         }}>
-        <Text style={{fontSize: 18, fontWeight: 700}}>{item?.jobTitle}</Text>
+        <Text style={{fontSize: 18, fontWeight: 700}}>{item.jobTitle}</Text>
         <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
           <Text style={{fontSize: 15, fontWeight: 500}}>
-            {company?.company?.name}
+            {item.company.name}
           </Text>
 
-          {item?.typeEmployment && (
+          {item.typeEmployment && (
             <>
               <View
                 style={{
@@ -75,12 +54,12 @@ export default function SingleExperience({
               color: '#666',
               fontWeight: 600,
             }}>
-            {formatDate(item?.start, {
+            {formatDate(item.start, {
               year: 'numeric',
               month: 'short',
             })}{' '}
             -{' '}
-            {formatDate(item?.end, {
+            {formatDate(item.end, {
               year: 'numeric',
               month: 'short',
             })}
@@ -98,7 +77,7 @@ export default function SingleExperience({
               color: '#666',
               fontWeight: 600,
             }}>
-            {calculateExperience(item?.start, item?.end)}
+            {calculateExperience(item.start, item.end)}
           </Text>
         </View>
 
@@ -111,7 +90,7 @@ export default function SingleExperience({
               }}>
               {item.location}
             </Text>
-            {item?.locationType && (
+            {item.locationType && (
               <>
                 <View
                   style={{
@@ -129,7 +108,7 @@ export default function SingleExperience({
           </View>
         )}
 
-        {item?.description && (
+        {item.description && (
           <View
             style={{
               marginTop: 10,
@@ -137,7 +116,7 @@ export default function SingleExperience({
             <MoreText>{item.description}</MoreText>
           </View>
         )}
-        {item?.skills?.length > 0 && (
+        {item.skills?.length > 0 && (
           <Text
             style={{
               fontWeight: 800,

@@ -9,11 +9,7 @@ import {
 import React from 'react';
 import SingleExperience from './SingleExperience';
 
-export default function Experiences({
-  data,
-  onSetCurrentExperience,
-  idCurrentExperience,
-}) {
+export default function Experiences({data}) {
   return (
     <>
       <FlatList
@@ -22,13 +18,7 @@ export default function Experiences({
           marginRight: 20,
         }}
         data={data}
-        renderItem={({item}) => (
-          <SingleExperience
-            item={item}
-            onSetCurrentExperience={onSetCurrentExperience}
-            idCurrentExperience={idCurrentExperience}
-          />
-        )}
+        renderItem={({item}) => <SingleExperience item={item} />}
         scrollEnabled={false}
       />
       <TouchableOpacity
