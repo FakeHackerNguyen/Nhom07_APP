@@ -172,6 +172,7 @@ export async function removeConnection({connectionId}) {
     return {data: null, errorMessage: error.message};
   }
 }
+
 export async function getFollowingPeople({page = 1, limit = 3}) {
   const accessToken = await AsyncStorage.getItem('accessToken');
   try {
@@ -193,5 +194,55 @@ export async function getFollowingPeople({page = 1, limit = 3}) {
     return {data, errorMessage: ''};
   } catch (error) {
     return {data: [], errorMessage: error.message};
+  }
+}
+
+export async function followUser({userId}) {
+  const accessToken = await AsyncStorage.getItem('accessToken');
+  try {
+    const res = await fetch(
+      `${baseUrlApi}/api/v1/connections/${userId}/follow`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: 'same-origin',
+      },
+    );
+
+    const data = await res.json();
+    if (data.error) {
+      throw new Error(data.message);
+    }
+
+    return {data, errorMessage: ''};
+  } catch (error) {
+    return {data: null, errorMessage: error.message};
+  }
+}
+
+export async function unfollowUser({userId}) {
+  const accessToken = await AsyncStorage.getItem('accessToken');
+  try {
+    const res = await fetch(
+      `${baseUrlApi}/api/v1/connections/${userId}/unfollow`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: 'same-origin',
+      },
+    );
+
+    const data = await res.json();
+    if (data.error) {
+      throw new Error(data.message);
+    }
+
+    return {data, errorMessage: ''};
+  } catch (error) {
+    return {data: null, errorMessage: error.message};
   }
 }

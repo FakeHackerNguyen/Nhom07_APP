@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import SingleConnection from '../features/network/SingleConnection';
 import SearchConnection from '../features/network/SearchConnection';
 import ModalRemoveConnection from '../features/network/ModalRemoveConnection';
-import Spinner from '../ui/Spinner';
 import {removeConnection} from '../services/apiNetwork';
 
 const ConnectionScreen = ({route}) => {

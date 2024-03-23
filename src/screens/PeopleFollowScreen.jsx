@@ -1,9 +1,10 @@
 import {FlatList, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import SingleFollowingPeople from '../features/network/SingleFollowingPeople';
 
 function PeopleFollowScreen({route}) {
-  const {following, count} = route.params;
+  const {following: follow} = route.params;
+  const [following, setFollowing] = useState(follow);
 
   return (
     <View
@@ -25,11 +26,11 @@ function PeopleFollowScreen({route}) {
             color: '#666',
             fontWeight: '600',
           }}>
-          {count} person
+          {following.count} person
         </Text>
       </View>
       <FlatList
-        data={following}
+        data={following.data}
         renderItem={({item}) => <SingleFollowingPeople following={item} />}
       />
     </View>

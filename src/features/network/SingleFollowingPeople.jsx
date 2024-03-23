@@ -1,7 +1,31 @@
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
+import toast from 'react-hot-toast/headless';
+import {followUser, unfollowUser} from '../../services/apiNetwork';
 
 const SingleFollowingPeople = ({following}) => {
+  const [isFollow, setIsFollow] = useState(true);
+
+  async function handleUnfollowUser() {
+    const {data, errorMessage} = await unfollowUser({userId: following._id});
+    if (errorMessage) {
+      return toast.error(errorMessage);
+    }
+
+    setIsFollow(false);
+    return toast.success(data.message);
+  }
+
+  async function handleFollowUser() {
+    const {data, errorMessage} = await followUser({userId: following._id});
+    if (errorMessage) {
+      return toast.error(errorMessage);
+    }
+
+    setIsFollow(true);
+    return toast.success(data.message);
+  }
+
   return (
     <View
       style={{
@@ -21,7 +45,7 @@ const SingleFollowingPeople = ({following}) => {
             flexDirection: 'row',
           }}>
           <Image
-            source={require('../../../assets/images/uploadAvatar.png')}
+            source={{uri: following.avatar.url}}
             style={{
               width: 50,
               height: 50,
@@ -53,44 +77,47 @@ const SingleFollowingPeople = ({following}) => {
             </Text>
           </View>
         </View>
-
-        {/* <TouchableOpacity
-          style={{
-            borderWidth: 1,
-            borderColor: '#2D64BC',
-            paddingVertical: 8,
-            paddingHorizontal: 15,
-            borderRadius: 30,
-            marginRight: 15,
-          }}>
-          <Text
+        {isFollow ? (
+          <TouchableOpacity
+            onPress={handleUnfollowUser}
             style={{
-              color: '#2D64BC',
-              fontWeight: '800',
-              fontSize: 18,
+              borderWidth: 1,
+              borderColor: '#666',
+              paddingVertical: 8,
+              paddingHorizontal: 15,
+              borderRadius: 30,
+              marginRight: 15,
             }}>
-            Follow
-          </Text>
-        </TouchableOpacity> */}
-
-        <TouchableOpacity
-          style={{
-            borderWidth: 1,
-            borderColor: '#666',
-            paddingVertical: 8,
-            paddingHorizontal: 15,
-            borderRadius: 30,
-            marginRight: 15,
-          }}>
-          <Text
+            <Text
+              style={{
+                color: '#666',
+                fontWeight: '800',
+                fontSize: 18,
+              }}>
+              Following
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={handleFollowUser}
             style={{
-              color: '#666',
-              fontWeight: '800',
-              fontSize: 18,
+              borderWidth: 1,
+              borderColor: '#2D64BC',
+              paddingVertical: 8,
+              paddingHorizontal: 15,
+              borderRadius: 30,
+              marginRight: 15,
             }}>
-            Following
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                color: '#2D64BC',
+                fontWeight: '800',
+                fontSize: 18,
+              }}>
+              Follow
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
