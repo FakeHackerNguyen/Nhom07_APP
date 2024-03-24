@@ -15,11 +15,11 @@ const Header = styled.View`
   background-color: #fff;
 `;
 
-export default function HeaderProfile() {
+export default function HeaderProfile({search}) {
   return (
     <Header>
       <CustomBackIcon />
-      <Search />
+      <Search search={search} />
       <TouchableOpacity>
         <Image source={require('../../../assets/icons/settings.png')} />
       </TouchableOpacity>

@@ -1,11 +1,11 @@
 import {Image, TextInput, View} from 'react-native';
 import React from 'react';
 
-const Search = () => {
+function Search({search, onSetIsFocusedSearch, isFocusedSearch, inputSearch}) {
   return (
     <View
       style={{
-        width: 280,
+        width: !isFocusedSearch ? '65%' : '80%',
         height: 35,
         flexDirection: 'row',
         alignItems: 'center',
@@ -21,6 +21,8 @@ const Search = () => {
         source={require('../../assets/icons/lookup.png')}
       />
       <TextInput
+        ref={inputSearch}
+        onFocus={() => onSetIsFocusedSearch(true)}
         style={{
           paddingLeft: 10,
           fontWeight: '500',
@@ -28,9 +30,10 @@ const Search = () => {
         placeholder="Search"
         placeholderTextColor="#5F6163"
         autoCapitalize="none"
+        defaultValue={search}
       />
     </View>
   );
-};
+}
 
 export default Search;

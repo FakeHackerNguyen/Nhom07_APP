@@ -17,7 +17,6 @@ import Experiences from '../features/users/Experiences';
 import Skills from '../features/users/Skills';
 import MoreText from '../features/users/MoreText';
 import HeaderProfile from '../features/users/HeaderProfile';
-import BottomNavigation from './MainScreen/BottomNavigation';
 
 const Title = styled.Text`
   font-size: 25px;
@@ -31,7 +30,7 @@ const CommonView = styled.View`
   margin-top: 10px;
 `;
 
-function Profile() {
+function DetailUserScreen() {
   const {profile} = useLogin();
 
   return (
@@ -269,4 +268,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default DetailUserScreen;
