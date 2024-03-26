@@ -67,7 +67,7 @@ function UserAddProfile({navigation, route}) {
     );
 
     const {errorMessage} = await updateInfoNewUser({
-      id: userId,
+      userId,
       userInfo: formData,
     });
 
@@ -76,7 +76,7 @@ function UserAddProfile({navigation, route}) {
     }
     setIsLoading(false);
 
-    return navigation.navigate('signup-avatar', {
+    return navigation.navigate('avatar', {
       profile,
       userId,
       firstName,

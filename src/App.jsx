@@ -25,6 +25,8 @@ import ManageNetworkScreen from './screens/ManageNetworkScreen';
 import CustomBackIcon from './ui/CustomBackIcon';
 import ConnectionScreen from './screens/ConnectionScreen';
 import PeopleFollowScreen from './screens/PeopleFollowScreen';
+import ForgotPasswordTabNavigator from './screens/ForgotPasswordScreen/ForgotPasswordTabNavigator';
+import SignUpTabNavigator from './screens/UserScreen/SignUpTabNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,20 +62,8 @@ export default function App() {
         <Stack.Screen name="home" component={Home} />
         <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen name="profile" component={ProfileScreen} />
-
-        <Stack.Screen name="forgot" component={ForgotPassword} />
-        <Stack.Screen name="otp" component={OTPVerification} />
-        <Stack.Screen name="confirm" component={ConfirmPassword} />
-
-        <Stack.Screen name="signup-name" component={UserAddName} />
-        <Stack.Screen name="signup-email" component={UserAddEmail} />
-        <Stack.Screen name="signup-location" component={UserAddLocation} />
-        <Stack.Screen name="signup-profile" component={UserAddProfile} />
-        <Stack.Screen name="signup-avatar" component={UserAddAvatar} />
-        <Stack.Screen
-          name="signup-verification"
-          component={EmailVerification}
-        />
+        <Stack.Screen name="forgot" component={ForgotPasswordTabNavigator} />
+        <Stack.Screen name="signup" component={SignUpTabNavigator} />
 
         <Stack.Screen name="main" component={MainStack} />
         <Stack.Screen name="settings" component={SettingScreen} />

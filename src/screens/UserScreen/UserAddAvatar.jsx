@@ -24,7 +24,7 @@ function UserAddAvatar({navigation, route}) {
     });
 
     const {errorMessage} = await updateAvatar({
-      id: userId,
+      userId,
       formData,
     });
     setIsLoading(false);
@@ -33,7 +33,7 @@ function UserAddAvatar({navigation, route}) {
       return toast.error(errorMessage);
     }
 
-    return navigation.navigate('signup-verification', {userId, email});
+    return navigation.navigate('verification', {userId, email});
   }
 
   return (
@@ -59,7 +59,7 @@ function UserAddAvatar({navigation, route}) {
         colorText="#6C6C6C"
         margin={[10, 0, 0, 0]}
         onHandlePress={() =>
-          navigation.navigate('signup-verification', {userId, email})
+          navigation.navigate('verification', {userId, email})
         }>
         Skip for now
       </Button>

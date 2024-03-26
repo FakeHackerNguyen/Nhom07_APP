@@ -30,7 +30,7 @@ function UserAddPassword({navigation, route}) {
       toast(errorMessage, {type: 'error'});
       return;
     }
-    return navigation.navigate('signup-location', {
+    return navigation.navigate('location', {
       userId: data._id,
       firstName,
       lastName,

@@ -8,6 +8,7 @@ import Input from '../../ui/Input';
 import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import {verifyOtp} from '../../services/apiAuth';
+import toast from 'react-hot-toast/headless';
 
 function OTPVerification({route, navigation}) {
   const [otp, setOtp] = useState('');
@@ -17,13 +18,13 @@ function OTPVerification({route, navigation}) {
 
   async function handleOTPVerification() {
     setIsLoading(true);
-    const {data, errorMessage} = await verifyOtp({token: otp, email});
+    const {errorMessage} = await verifyOtp({token: otp, email});
     setIsLoading(false);
 
     if (errorMessage) {
       return toast(errorMessage, {type: 'error'});
     }
-    navigation.navigate('confirm', {email, token: otp});
+    navigation.jumpTo('confirm', {email, token: otp});
   }
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
@@ -41,6 +42,7 @@ function OTPVerification({route, navigation}) {
               fontWeight: '500',
               color: '#666666',
               width: 389,
+              lineHeight: 30,
             }}>
             Check {email}
             {'\n'}for a verification code
@@ -79,6 +81,7 @@ function OTPVerification({route, navigation}) {
               fontWeight: '500',
               color: '#666666',
               width: 389,
+              lineHeight: 30,
             }}>
             If you don’t see a code in your inbox,{'\n'}check your spam folder.
             If it’s not there,{'\n'}the email address may not be confirmed{'\n'}

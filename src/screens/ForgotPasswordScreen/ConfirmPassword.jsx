@@ -8,12 +8,15 @@ import Input from '../../ui/Input';
 import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import {resetPassword} from '../../services/apiAuth';
+import toast from 'react-hot-toast/headless';
+import {useNavigation} from '@react-navigation/native';
 
-function ConfirmPassword({route, navigation}) {
+function ConfirmPassword({route}) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   const {email, token} = route.params;
 
@@ -29,7 +32,9 @@ function ConfirmPassword({route, navigation}) {
     if (errorMessage) {
       return toast(errorMessage, {type: 'error'});
     }
-    navigation.navigate('login');
+
+    toast.success(data.message);
+    return navigation.navigate('login');
   }
 
   return (

@@ -1,8 +1,8 @@
 import {baseUrlApi} from '../constants/baseUrlApi';
 
-export async function updateInfoNewUser({id, userInfo}) {
+export async function updateInfoNewUser({userId, userInfo}) {
   try {
-    const res = await fetch(`${baseUrlApi}/api/v1/users/new/${id}`, {
+    const res = await fetch(`${baseUrlApi}/api/v1/users/new/${userId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -23,16 +23,19 @@ export async function updateInfoNewUser({id, userInfo}) {
   }
 }
 
-export async function updateAvatar({id, formData}) {
+export async function updateAvatar({userId, formData}) {
   try {
-    const res = await fetch(`${baseUrlApi}/api/v1/users/upload-avatar/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/form-data',
+    const res = await fetch(
+      `${baseUrlApi}/api/v1/users/upload-avatar/${userId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/form-data',
+        },
+        credentials: 'same-origin',
+        body: formData,
       },
-      credentials: 'same-origin',
-      body: formData,
-    });
+    );
 
     const data = await res.json();
 

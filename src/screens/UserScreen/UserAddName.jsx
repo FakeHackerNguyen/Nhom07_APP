@@ -62,7 +62,7 @@ function UserAddName({navigation}) {
           backgroundColor="#2D64BC"
           colorText="#fff"
           onHandlePress={() =>
-            navigation.navigate('signup-email', {firstName, lastName})
+            navigation.jumpTo('email', {firstName, lastName})
           }>
           Continue
         </Button>

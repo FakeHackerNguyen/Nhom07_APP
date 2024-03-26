@@ -23,7 +23,7 @@ function ForgotPassword({navigation}) {
       return toast(errorMessage, {type: 'error'});
     }
 
-    navigation.navigate('otp', {email});
+    navigation.jumpTo('otp', {email});
   }
 
   return (
@@ -57,6 +57,7 @@ function ForgotPassword({navigation}) {
               fontWeight: '500',
               color: '#666666',
               width: 389,
+              lineHeight: 30,
             }}>
             We’ll send a verification code to this{'\n'}email if it matches an
             existing SocialJob{'\n'}account

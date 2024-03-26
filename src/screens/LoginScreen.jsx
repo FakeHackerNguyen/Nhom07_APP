@@ -14,6 +14,7 @@ import Input from '../ui/Input';
 import Button from '../ui/Button';
 import Spinner from '../ui/Spinner';
 import useLogin from '../features/authentication/useLogin';
+import {useNavigation} from '@react-navigation/native';
 
 const StyledText = styled.Text`
   font-size: ${props => props.size || '15px'};
@@ -25,11 +26,12 @@ const Header = styled.View`
   margin: 30px 0 0 20px;
 `;
 
-export default function Login({navigation}) {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const {handleLogin, isLoading, profile} = useLogin();
+  const navigation = useNavigation();
 
   // useEffect(() => {
   //   Linking.addEventListener('url', event => {
@@ -66,7 +68,7 @@ export default function Login({navigation}) {
             or{' '}
             <Text
               style={{color: '#2D64BC'}}
-              onPress={() => navigation.navigate('signup-name')}>
+              onPress={() => navigation.navigate('signup')}>
               Join SocialJob
             </Text>
           </StyledText>

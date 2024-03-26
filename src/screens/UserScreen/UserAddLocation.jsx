@@ -65,7 +65,7 @@ function UserAddLocation({navigation, route}) {
           backgroundColor="#2D64BC"
           colorText="#fff"
           onHandlePress={() =>
-            navigation.navigate('signup-profile', {
+            navigation.navigate('profile', {
               location,
               userId,
               firstName,

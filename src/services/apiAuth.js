@@ -90,14 +90,14 @@ export async function forgotPassword({email}) {
   }
 }
 
-export async function sendEmailVerification({id, type}) {
+export async function sendEmailVerification({userId, type}) {
   try {
     const res = await fetch(`${baseUrlApi}/api/v1/users/send-email`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({id, type}),
+      body: JSON.stringify({userId, type}),
       credentials: 'same-origin',
     });
 

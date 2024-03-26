@@ -10,11 +10,13 @@ import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import {sendEmailVerification, verifyOtp} from '../../services/apiAuth';
 import {updateInfoNewUser} from '../../services/userApi';
+import {useNavigation} from '@react-navigation/native';
 
-function EmailVerification({navigation, route}) {
+function EmailVerification({route}) {
   const [otp, setOtp] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const {userId, email} = route.params;
+  const navigation = useNavigation();
 
   async function handleVerifyEmail() {
     setIsLoading(true);
@@ -27,7 +29,7 @@ function EmailVerification({navigation, route}) {
       const formData = new URLSearchParams();
       formData.append('isVerified', true);
       await updateInfoNewUser({
-        id: userId,
+        userId,
         userInfo: formData,
       });
     } else {
@@ -42,7 +44,7 @@ function EmailVerification({navigation, route}) {
   async function sendEmail() {
     setIsLoading(true);
     const {errorMessage} = await sendEmailVerification({
-      id: userId,
+      userId,
       type: 'signup',
     });
     if (errorMessage) {
